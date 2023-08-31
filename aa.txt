@@ -1,0 +1,6 @@
+Makefile
+aa.txt
+libft
+minishell
+minishell.c
+minishell.h
