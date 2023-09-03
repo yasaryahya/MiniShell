@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 23:18:54 by yyasar            #+#    #+#             */
-/*   Updated: 2022/10/21 08:27:23 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/02 11:38:35 by sustmas           #+#    #+#             */
+/*   Updated: 2023/09/02 18:43:44 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../library/minishell.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_error(t_data data, int flg)
 {
-	int	i;
+	//char	*command;
 
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i] != '\0')
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
-	write(fd, "\n", 1);
+	(void)data;
+	if (flg == 0)
+		printf("hatacifttirnak");
+			
+
 }
+
