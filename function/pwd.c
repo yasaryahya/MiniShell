@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/02 11:38:35 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/05 18:50:15 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/05 16:01:39 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/05 19:02:10 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void	ft_error(char *str, int flag)
+void ft_pwd(void)
 {
-	if (flag == 1)
-	{
-		printf("%s", str);
-		exit(EXIT_FAILURE);
-	}
-	else
-		printf("%s", str);
-	return;
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+        printf("%s\n", cwd);
+    else
+        ft_error("function/pwd: pwd hatası", 0);
+    return ;
 }

@@ -6,17 +6,20 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/02 20:54:50 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:58:10 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void	minishell(void)
+int exit_signal = 0;
+
+void	minishell(char **environment)
 {
 	char	*command;
 	t_data	data;
-
+	data.envrt = environment;
+	
 	while (1)
 	{
 		char **str;
@@ -28,13 +31,17 @@ void	minishell(void)
 		data.arg_len = ft_strlen(command);
 		str = ft_split(command, ' ');
 		data.arg = str;
-		ft_malloc_error(str);
 		parse(data);
+		ft_malloc_error(str);
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
-	minishell();
+	(void)argc;
+	(void)argv;
+	int a = getpid();
+	printf("%d", a);
+	minishell(env);
 	return (0);
 }

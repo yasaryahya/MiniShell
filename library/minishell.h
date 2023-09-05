@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/02 20:31:14 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/05 22:05:10 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # include <readline/history.h>
 # include <string.h>
 
+typedef struct s_env
+{
+	char	**data;
+	struct s_env	*next;
+}	t_env;
+
+
 typedef struct s_data 
 {
 	char	**arg;
@@ -28,14 +35,27 @@ typedef struct s_data
 	char	*str;
 	int		arg_len;
 	int		echo_val;
-
+	int		exit_signal;
+	char	**envrt;
+	t_env	env;
+	
 }	t_data;
+
 
 void		ft_sig(int sig);
 void		parse(t_data data);
-void		ft_error(t_data data,int flg);
+void		ft_error(char *str, int flag);
 void		tirnak_kontrol(t_data data);
 void	 	ilkarguman(t_data data);
 
-#endif
 
+//function
+void		ft_echo(t_data data);
+void		ft_pwd(void);
+void		bin_ls(void);
+void		ls_genel(t_data data);
+void		ls_la(void);
+void 		ls();
+void		ls_l();
+
+#endif

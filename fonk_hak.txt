@@ -1,0 +1,59 @@
+					LS FONK
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+
+int main() {
+    DIR *dp;
+    struct dirent *ep;
+
+    // Mevcut dizini aç
+    dp = opendir("./");
+
+    if (dp != NULL) {
+        // Dizin içindeki dosyaları listele
+        while ((ep = readdir(dp))) {
+            printf("%s\n", ep->d_name);
+        }
+        (void)closedir(dp);
+    } else {
+        perror("Dizin açma hatası");
+        exit(EXIT_FAILURE);
+    }
+
+    return 0;
+}
+
+Açıklama
+
+#include İşlemleri:
+
+stdio.h: Standart girdi/çıktı işlevlerini içerir.
+stdlib.h: Temel veri tipleri ve işlevleri içerir.
+dirent.h: Dizin işlemleri için gerekli olan yapıları ve işlevleri içerir.
+main Fonksiyonu:
+
+Programın ana işlevi main fonksiyonu ile başlar.
+DIR ve struct dirent Değişkenleri:
+
+DIR veri türü, bir dizini temsil eden bir işaretçiyi saklamak için kullanılır.
+struct dirent, bir dizin içindeki dosya veya klasörün bilgilerini içeren bir yapıdır.
+DIR İşaretçisi ve Dizin Açma:
+
+DIR *dp; ifadesi, dizini temsil eden bir işaretçi dp oluşturur.
+dp = opendir("./"); ifadesi, mevcut dizini açar ve dp işaretçisine atar. opendir işlevi, dizini açar ve işaretçiyi döndürür.
+Dizin İçinde Gezinme:
+
+if (dp != NULL) ile dizinin başarıyla açıldığını kontrol ediyoruz. Eğer dizin başarıyla açılmışsa, içindeki dosyaları listelemek için bir döngü başlatılır.
+ep = readdir(dp) ifadesi, bir sonraki dosya veya klasörün bilgisini alır ve ep işaretçisine atar.
+while ((ep = readdir(dp))) döngüsü, dizin içindeki her dosya veya klasör için çalışır.
+Dosya Adını Yazdırma:
+
+printf("%s\n", ep->d_name); ifadesi, mevcut dosyanın adını ekrana yazdırır. ep->d_name, struct dirent yapısının bir üyesidir ve dosya adını içerir.
+Dizin Kapatma:
+
+Dizin işlemi tamamlandığında, closedir(dp); ifadesi ile dizin kapatılır. Bu, kaynakların düzgün bir şekilde serbest bırakılmasını sağlar.
+Hata Kontrolü:
+
+Eğer dizini açma işlemi başarısız olursa, perror işlevi ile hata mesajı yazılır ve program EXIT_FAILURE koduyla sonlandırılır.
+Sonuç olarak, bu program, mevcut dizindeki dosya ve klasörleri listelemek için kullanılır. readdir işlevi ile dizin içinde gezinilir ve her dosya adı printf işlevi ile ekrana yazdırılır. Dizin işlemi tamamlandığında, dizin kapatılır ve program sonlanır.
