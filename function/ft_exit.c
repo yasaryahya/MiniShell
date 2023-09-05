@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 01:49:18 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/06 00:55:28 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/06 01:17:04 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void	ft_sig(int sig)
+void	ft_exit(t_data data)
 {
-	if (sig == 2)
-	{
-		printf("\n");
-		rl_on_new_line();
-		//rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == 3)
-		printf("%s", "\n");
-	else if(sig == 4)
-	{
-		printf("\nExit\n");
-		exit (0);
-	}
-		
+	if (data.arg_count <= 2)
+		exit(0);
+	else
+		ft_error("exit: too many arguments\n", 0);
+	return;
 }

@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:58:20 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/05 22:44:41 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 02:11:15 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void ls()
                 printf("%s\n", ep->d_name);
             if (ep->d_name[0] != '.')
             {
-                printf("%s      ", ep->d_name);
+                printf("%s   	", ep->d_name);
                 i++;
             }
         }
@@ -73,10 +73,10 @@ void	ls_genel(t_data data)
 		ls();
 	else if (ft_strncmp(data.arg[1], "-l", ft_strlen(data.arg[1])) == 0)
 		ls_l();
+	else if (ft_strncmp(data.arg[1], "-a", ft_strlen(data.arg[1])) == 0)
+		ls_a();
 	else if (ft_strncmp(data.arg[1], "-la", ft_strlen(data.arg[1])) == 0)
 		ls_la();
-	/*else if (data.arg[1] = "-a")
-		ls_a();*/
 	else
 	{
 		printf("%s %s ", "ls", data.arg[1]);

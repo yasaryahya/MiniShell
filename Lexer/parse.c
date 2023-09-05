@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/05 21:35:31 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 02:05:23 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	 ilkarguman(t_data data)
 		else if (ft_strncmp(data.arg[0], "ls", ft_strlen(data.arg[0])) == 0)
 		 	ls_genel(data);
 		else if (ft_strncmp(data.arg[0], "cat", ft_strlen(data.arg[0])) == 0)
-		 	printf("cat");
+		 	cat(data);
 		else if (ft_strncmp(data.arg[0], "cd", ft_strlen(data.arg[0])) == 0)
-		 	printf("cd");
+		 	cd(data);
 		else if (ft_strncmp(data.arg[0], "touch", ft_strlen(data.arg[0])) == 0)
 		 	printf("touch");
 		else if (ft_strncmp(data.arg[0], "mkdir", ft_strlen(data.arg[0])) == 0)
@@ -42,6 +42,8 @@ void	 ilkarguman(t_data data)
 		 	printf("env");
 		else if (ft_strncmp(data.arg[0], "export", ft_strlen(data.arg[0])) == 0)
 		 	printf("export");
+		else if (ft_strncmp(data.arg[0], "exit", ft_strlen(data.arg[0])) == 0)
+		 	ft_exit(data);
 		else
 			printf("command not found: %s\n", data.arg[0]);
 	return ;
