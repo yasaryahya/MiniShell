@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 01:20:04 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 02:05:09 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 02:30:32 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	cat(t_data data)
 				line = get_next_line(fd);
 			}	
 		}
+		else
+			printf("error command cat\n");
 	}
 	else
 		while(1)

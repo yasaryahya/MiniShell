@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/06 02:06:14 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 03:02:35 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,7 @@ void		ls_a();
 void		ft_exit(t_data data);
 void		cd(t_data data);
 void		cat(t_data data);
+void 		touch(t_data data);
+void		ft_env(t_data data);
+
 #endif

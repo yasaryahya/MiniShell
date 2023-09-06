@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 01:45:08 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 02:37:42 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	int a = getpid();
-	printf("%d", a);
 	minishell(env);
 	return (0);
 }
