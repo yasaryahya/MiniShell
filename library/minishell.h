@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/06 03:02:35 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 05:14:12 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_data
 	int		exit_signal;
 	char	**envrt;
 	int		arg_count;
+	char 	*pathname;
 	t_env	env;
 	
 }	t_data;
@@ -65,5 +66,8 @@ void		cd(t_data data);
 void		cat(t_data data);
 void 		touch(t_data data);
 void		ft_env(t_data data);
+int 		ft_mkdir(t_data data);
+int 		rm(const char *pathname);
+void		export(t_data data);
 
 #endif

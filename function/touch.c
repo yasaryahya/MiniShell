@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 02:46:35 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 02:54:52 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 04:01:43 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,7 @@ void touch(t_data data)
 	struct stat st;
     // Dosyanın varlığını kontrol et
     if (access(data.arg[1], F_OK) == 0) 
-	{
-        // Dosya mevcut, son değiştirme zamanını güncelle
-        if (utime(data.arg[1], NULL) != 0) {
-            ft_error("touch: utime", 0);
-        }
-    } 
+		printf("\n"); 
 	else 
 	{
         // Dosya mevcut değil, yeni bir dosya oluştur

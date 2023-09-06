@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/06 02:58:55 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 05:06:43 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	 ilkarguman(t_data data)
 		else if (ft_strncmp(data.arg[0], "touch", ft_strlen(data.arg[0])) == 0)
 		 	touch(data);
 		else if (ft_strncmp(data.arg[0], "mkdir", ft_strlen(data.arg[0])) == 0)
-			printf("mkdir");
+			ft_mkdir(data);
 		else if (ft_strncmp(data.arg[0], "rm", ft_strlen(data.arg[0])) == 0)
-			printf("rm");
+			rm(data.arg[1]);
 		else if (ft_strncmp(data.arg[0], "grep", ft_strlen(data.arg[0])) == 0)
 		 	printf("grep");
 		else if (ft_strncmp(data.arg[0], "env", ft_strlen(data.arg[0])) == 0)
 		 	ft_env(data);
 		else if (ft_strncmp(data.arg[0], "export", ft_strlen(data.arg[0])) == 0)
-		 	printf("export");
+		 	printf("export");//export(data);
 		else if (ft_strncmp(data.arg[0], "unset", ft_strlen(data.arg[0])) == 0)
 		 	printf("unset");
 		else if (ft_strncmp(data.arg[0], "clear", ft_strlen(data.arg[0])) == 0)

@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 02:41:59 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 03:07:15 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 04:17:40 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ void	ft_env(t_data data)
         char *var_name = data.arg[1];
         char *var_value = getenv(var_name);
 
-        if (var_value) {
+        if (var_value)
             printf("%s=%s\n", var_name, var_value);
-        } else {
-            ft_error("ft_env: Hata: Ortam değişkeni bulunamadı.\n", 0);
+        else
+		{
+            printf("Hata: Ortam değişkeni bulunamadı.\n");
             return;
         }
     }
 	else
 	{
-        fprintf(stderr, "Kullanım: %s [ORTAM_DEĞİŞKENİ]\n", data.arg[0]);
-        return;
-    }
+		printf("Kullanım: env [ORTAM_DEĞİŞKENİ]\n");
+		return;
+	}
     return;
 }
