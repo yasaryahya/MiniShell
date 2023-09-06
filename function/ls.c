@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:58:20 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 02:11:15 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 06:56:45 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void ls()
         // Dizin içindeki dosyaları listele
         while ((ep = readdir(dp)))
 		{
-            if (i % 5 == 0)
-                printf("%s\n", ep->d_name);
+            /*if (i % 5 == 0)
+                printf("%s\n", ep->d_name);*/
             if (ep->d_name[0] != '.')
             {
                 printf("%s   	", ep->d_name);

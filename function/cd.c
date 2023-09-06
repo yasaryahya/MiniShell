@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 01:39:35 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 02:08:22 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 06:55:06 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	cd(t_data data)
         ft_error("Kullanım: cd <dizin>\n", 0);
         return;
     }
-
-    if (ft_strncmp(data.arg[1], "..", ft_strlen(data.arg[1])) == 0)
+    if (ft_strncmp(data.arg[1], ".", ft_strlen(data.arg[1])) == 0)
+        return;
+    else if (ft_strncmp(data.arg[1], "..", ft_strlen(data.arg[1])) == 0)
 	{	// "cd .." komutunu ele alın
         if (chdir("..") != 0)
 		{

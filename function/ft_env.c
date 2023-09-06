@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 02:41:59 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 04:17:40 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 06:46:30 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	ft_env(t_data data)
 		int i;
 		i = 0;
         while (data.envrt[i])
-			printf("%s\n", data.envrt[i++]);
-    }
+			printf("%s\n", data.envrt[i++]);    }
 	else if (data.arg_count == 2)
 	{
         // Bir argüman varsa, belirtilen ortam değişkenini görüntüle

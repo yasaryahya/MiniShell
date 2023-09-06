@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 05:39:24 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 06:39:05 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	export2(t_data data)
 	env_count = 0;
 	while (data.envrt[env_count])
 		env_count++;
-	data.envrt = (char *)malloc(sizeof(char) * (data.arg_count + env_count));
+	data.envrt = malloc(sizeof(char) * (data.arg_count + env_count));
 	i = -1;
 	while ((data.arg_count - 1) > ++i)
 	{
@@ -31,14 +31,18 @@ int	export2(t_data data)
 		data.envrt[env_count + i] = ft_strdup(new);
 	}
 	data.envrt[env_count + data.arg_count] = "\0";
+	return (0);
 }
+
 void	export(t_data data)
 {
 	int i;
 	i = 0;
 	if (data.arg_count == 1)
+	{
 		while (data.envrt[i])
             printf("declare -x %s\n", data.envrt[i++]);
+	}
 	else if (data.arg_count >= 2)
 	{
 		if (export2(data) >= 2)
