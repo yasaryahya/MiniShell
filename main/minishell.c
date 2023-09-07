@@ -6,24 +6,22 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 02:37:42 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/07 06:52:42 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-int exit_signal = 0;
-
-void	minishell(char **environment)
+void	minishell(void)
 {
 	char	*command;
 	int		count;
 	int		i;
 	t_data	data;
-	data.envrt = environment;
-	
+
 	while (1)
 	{
+		
 		i = -1;
 		count = 0;
 		char **str;
@@ -42,13 +40,20 @@ void	minishell(char **environment)
 		data.arg = str;
 		parse(data);
 		ft_malloc_error(str);
+		//free_list();
 	}
+	
 }
+
 
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	minishell(env);
+	t_data data;
+	data.envrt = env;
+	set_arg(env, 0);
+	minishell();
+	clearEnvList();
 	return (0);
 }

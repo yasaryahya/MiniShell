@@ -4,6 +4,16 @@
 		"dirent.h": "c",
 		"minishell.h": "c",
 		"stdio.h": "c",
-		"locale": "c"
+		"locale": "c",
+		"iterator": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"bitset": "c",
+		"functional": "c",
+		"memory": "c",
+		"unistd.h": "c",
+		"stdbool.h": "c"
 	}
 }

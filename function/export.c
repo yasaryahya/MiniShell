@@ -6,14 +6,14 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 06:39:05 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/06 23:49:11 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 // dikkat et ft_strdup var!!!
 
-
+/*
 int	export2(t_data data)
 {
 	int 	env_count;
@@ -50,3 +50,4 @@ void	export(t_data data)
 	}
 	return;	
 }
+*/

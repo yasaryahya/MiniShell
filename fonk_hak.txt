@@ -54,6 +54,6 @@ Dizin Kapatma:
 
 Dizin işlemi tamamlandığında, closedir(dp); ifadesi ile dizin kapatılır. Bu, kaynakların düzgün bir şekilde serbest bırakılmasını sağlar.
 Hata Kontrolü:
-
+salih
 Eğer dizini açma işlemi başarısız olursa, perror işlevi ile hata mesajı yazılır ve program EXIT_FAILURE koduyla sonlandırılır.
 Sonuç olarak, bu program, mevcut dizindeki dosya ve klasörleri listelemek için kullanılır. readdir işlevi ile dizin içinde gezinilir ve her dosya adı printf işlevi ile ekrana yazdırılır. Dizin işlemi tamamlandığında, dizin kapatılır ve program sonlanır.

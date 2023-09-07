@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/06 05:14:12 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/07 06:51:53 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
+# include <stdbool.h>
+
 
 typedef struct s_env
 {
-	char	**data;
+	char			*data;
+	bool			is_env_equal;
 	struct s_env	*next;
-}	t_env;
+	struct s_env	*prev;
+}		t_env;
 
 
 typedef struct s_data 
@@ -35,39 +39,52 @@ typedef struct s_data
 	char	*b_arg;
 	char	*str;
 	int		arg_len;
-	int		echo_val;
 	int		exit_signal;
 	char	**envrt;
 	int		arg_count;
 	char 	*pathname;
-	t_env	env;
+	char	*cmd_path;
+	t_env	*env;
 	
 }	t_data;
 
+t_data		*data;
+t_env		*env;
+void		minishell(void);
 
 void		ft_sig(int sig);
 void		parse(t_data data);
 void		ft_error(char *str, int flag);
 void		tirnak_kontrol(t_data data);
 void	 	ilkarguman(t_data data);
+void		ft_environment();
+t_env		*ft_newenv(void *content);
+t_env		*ft_envlast(t_env *lst);
+void		ft_envadd_back(t_env **lst, t_env *new);
+void		ft_env(t_data *base);
+void		free_list(void);
 
+int 		set_arg(char **envp, int flag);
+int			env_struct(t_data *base, char *new_arg);
+char		**env_split(char *src);
+char		*find_chr_ret_str(char *str, char c, int status);
 
 //function
 void		ft_echo(t_data data);
 void		ft_pwd(void);
 void		bin_ls(void);
-void		ls_genel(t_data data);
-void		ls_la(void);
-void 		ls();
-void		ls_l();
-void		ls_a();
+//void		ls_genel(t_data data);
+//void		ls_la(void);
+//void 		ls();
+//void		ls_l();
+//void		ls_a();
 void		ft_exit(t_data data);
 void		cd(t_data data);
-void		cat(t_data data);
-void 		touch(t_data data);
-void		ft_env(t_data data);
-int 		ft_mkdir(t_data data);
-int 		rm(const char *pathname);
+//int			cat(t_data data);
+//int 		touch(t_data data);
+//int 		ft_mkdir(t_data data);
+//int 		rm(const char *pathname);
 void		export(t_data data);
-
+void		command(t_data data);
+void 		clearEnvList();
 #endif

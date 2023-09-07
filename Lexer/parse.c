@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/06 07:13:45 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/07 06:49:54 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,35 @@ void	 ilkarguman(t_data data)
 		 	ft_pwd();
 		else if (ft_strncmp(data.arg[0], "bin/ls", ft_strlen(data.arg[0])) == 0)
 		 	bin_ls();
-		else if (ft_strncmp(data.arg[0], "ls", ft_strlen(data.arg[0])) == 0)
-		 	ls_genel(data);
-		else if (ft_strncmp(data.arg[0], "cat", ft_strlen(data.arg[0])) == 0)
-		 	cat(data);
+		//else if (ft_strncmp(data.arg[0], "ls", ft_strlen(data.arg[0])) == 0)
+		// 	ls_genel(data);
+		//else if (ft_strncmp(data.arg[0], "cat", ft_strlen(data.arg[0])) == 0)
+		// 	cat(data);
 		else if (ft_strncmp(data.arg[0], "cd", ft_strlen(data.arg[0])) == 0)
 		 	cd(data);
-		else if (ft_strncmp(data.arg[0], "touch", ft_strlen(data.arg[0])) == 0)
-		 	touch(data);
-		else if (ft_strncmp(data.arg[0], "mkdir", ft_strlen(data.arg[0])) == 0)
-			ft_mkdir(data);
-		else if (ft_strncmp(data.arg[0], "rm", ft_strlen(data.arg[0])) == 0)
-			rm(data.arg[1]);
-		else if (ft_strncmp(data.arg[0], "grep", ft_strlen(data.arg[0])) == 0)
-		 	printf("grep");//grep();
+		//else if (ft_strncmp(data.arg[0], "touch", ft_strlen(data.arg[0])) == 0)
+		// 	touch(data);
+		//else if (ft_strncmp(data.arg[0], "mkdir", ft_strlen(data.arg[0])) == 0)
+		//	ft_mkdir(data);
+		//else if (ft_strncmp(data.arg[0], "rm", ft_strlen(data.arg[0])) == 0)
+		//	rm(data.arg[1]);
 		else if (ft_strncmp(data.arg[0], "env", ft_strlen(data.arg[0])) == 0)
-		 	ft_env(data);
+		 	set_arg(data.envrt, 1);
 		else if (ft_strncmp(data.arg[0], "export", ft_strlen(data.arg[0])) == 0)
 		 	printf("export");//export(data);
 		else if (ft_strncmp(data.arg[0], "unset", ft_strlen(data.arg[0])) == 0)
 		 	printf("unset");//unset();
-		else if (ft_strncmp(data.arg[0], "clear", ft_strlen(data.arg[0])) == 0)
-		 	printf("\033[H\033[J");
+		//else if (ft_strncmp(data.arg[0], "clear", ft_strlen(data.arg[0])) == 0)
+		// 	printf("\033[H\033[J");
 		else if (ft_strncmp(data.arg[0], "exit", ft_strlen(data.arg[0])) == 0)
 		 	ft_exit(data);
 		else
-			printf("command not found: %s\n", data.arg[0]);
+			command(data);
 	return ;
 }
 
-void tirnak_kontrol(t_data data) {
+void tirnak_kontrol(t_data data)
+{
     bool inside_double_quotes = false;
     bool inside_single_quotes = false;
 
