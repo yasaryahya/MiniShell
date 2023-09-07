@@ -62,4 +62,47 @@ int main(int argc, char *argv[], char *envp[]) {
 
     return 0;
 }
+
+
+
+char *find_value(char *key, char **envp)
+{
+    int i = 0;
+
+    while (envp[i])
+    {
+        if (ft_strncmp(envp[i], key, ft_strlen(key)) == 0)
+            return (envp[i] + ft_strlen(key) + 1);
+        i++;
+    }
+    return ("");
+}
+
+char *find_path(char *cmdline, char **envp)
+{
+    int i = 0;
+    char *temp;
+    char *new_path;
+    char **paths;
+    struct stat a;
+
+    temp = find_value("PATH", envp);
+    paths = ft_split(temp, ':');
+    while (paths[i])
+    {
+        temp = ft_strjoin(paths[i], "/");
+        new_path = ft_strjoin(temp, cmdline);
+        free(temp);
+
+        if (stat(new_path, &a) == 0)
+        {
+            ft_malloc_error(paths);
+            return (new_path);
+        }
+        free(new_path);
+        i++;
+    }
+    ft_malloc_error(paths);
+    return (ft_strdup(cmdline));
+}
 */

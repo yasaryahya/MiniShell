@@ -6,18 +6,17 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/07 06:52:42 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/08 00:49:27 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void	minishell(void)
+void	minishell(t_data *data)
 {
 	char	*command;
 	int		count;
 	int		i;
-	t_data	data;
 
 	while (1)
 	{
@@ -31,13 +30,14 @@ void	minishell(void)
 		if(command == NULL)
 			ft_sig(4);
 		add_history(command);
-		data.b_arg = command;
-		data.arg_len = ft_strlen(command);
+		data->b_arg = command;
+		data->arg_len = ft_strlen(command);
 		str = ft_split(command, ' ');
 		while(str[++i])
 			count++;
-		data.arg_count = count; 
-		data.arg = str;
+		data->arg_count = count;
+		printf("aaa %d", count);
+		data->arg = str;
 		parse(data);
 		ft_malloc_error(str);
 		//free_list();
@@ -52,8 +52,8 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	t_data data;
 	data.envrt = env;
-	set_arg(env, 0);
-	minishell();
+	set_env(env);
+	minishell(&data);
 	clearEnvList();
 	return (0);
 }

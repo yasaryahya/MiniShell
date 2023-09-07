@@ -5,20 +5,42 @@
 #include <limits.h>
 #include <unistd.h> // fork, execve, waitpid için gerekli
 
-char *find_value(char *key, char **envp)
+void ft_free_str(char **str)
 {
     int i = 0;
 
-    while (envp[i])
+    if (!str)
+        return;
+    
+    while (str[i])
     {
-        if (ft_strncmp(envp[i], key, ft_strlen(key)) == 0)
-            return (envp[i] + ft_strlen(key) + 1);
+        free(str[i]);
+        str[i] = NULL; // Pointer'ı NULL olarak ayarlayın
         i++;
     }
-    return ("");
+    
+    free(str);
+    str = NULL;
 }
 
-char *find_path(char *cmdline, char **envp)
+char *find_value(char *key, t_data *data)
+{
+    int i = 0;
+
+    while (data->envrt[i])
+    {
+        if (ft_strncmp(data->envrt[i], key, ft_strlen(key)) == 0)
+        {
+            // "PATH=" ifadesini atlayarak PATH değerini döndürüyoruz
+            return (data->envrt[i] + ft_strlen(key));
+        }
+        i++;
+    }
+    
+    return (NULL); // Belirtilen anahtarı bulamazsak NULL döndürüyoruz
+}
+
+char *find_path(char *cmdline, t_data *data)
 {
     int i = 0;
     char *temp;
@@ -26,39 +48,43 @@ char *find_path(char *cmdline, char **envp)
     char **paths;
     struct stat a;
 
-    temp = find_value("PATH", envp);
+    temp = find_value("PATH", data);
     paths = ft_split(temp, ':');
+    
     while (paths[i])
     {
-        temp = ft_strjoin(paths[i], "/");
-        new_path = ft_strjoin(temp, cmdline);
-        free(temp);
+        char *path_with_slash = ft_strjoin(paths[i], "/");
+        new_path = ft_strjoin(path_with_slash, cmdline);
+        
+        free(path_with_slash);
 
         if (stat(new_path, &a) == 0)
         {
-            ft_malloc_error(paths);
+            ft_free_str(paths);
             return (new_path);
         }
+        
         free(new_path);
         i++;
     }
-    ft_malloc_error(paths);
-    return (ft_strdup(cmdline));
+    
+    ft_free_str(paths);
+    return (NULL); // Komut dosyası bulunamadığında NULL döndürüyoruz
 }
 
-
-void command(t_data data)
+void command(t_data *data)
 {
-    char *cmd = ft_strdup(data.arg[0]); // arg[0] kopyalanıyor
+    char *cmd = ft_strdup(data->arg[0]);
+    
     if (cmd == NULL)
     {
         ft_error("Bellek ayrılma hatası", 0);
         return;
     }
 
-    char *komut = find_path(cmd, data.envrt);
+    char *komut = find_path(cmd, data);
 
-    if (komut == NULL)
+    if (komut == NULL || strcmp(komut, "") == 0)
     {
         ft_error("Komut bulunamadı", 0);
         free(cmd);
@@ -77,7 +103,7 @@ void command(t_data data)
 
     if (child_pid == 0)
     { // Çocuk süreç
-        if (execve(komut, data.arg, NULL) == -1)
+        if (execve(komut, data->arg, NULL) == -1)
         {
             ft_error("execve hatası", 0);
             free(cmd);
@@ -90,5 +116,5 @@ void command(t_data data)
         waitpid(child_pid, &status, 0);
         free(cmd); // Bellek serbest bırakılıyor
     }
+    printf("\n");
 }
-

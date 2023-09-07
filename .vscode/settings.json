@@ -14,6 +14,9 @@
 		"functional": "c",
 		"memory": "c",
 		"unistd.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"limits.h": "c",
+		"stdlib.h": "c",
+		"stat.h": "c"
 	}
 }

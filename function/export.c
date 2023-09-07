@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/06 23:49:11 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/08 01:05:04 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,37 @@
 // dikkat et ft_strdup var!!!
 
 /*
-int	export2(t_data data)
+void	export2(void)
 {
 	int 	env_count;
 	char	*new;
 	int 	i;
 	
 	env_count = 0;
-	while (data.envrt[env_count])
+	while (data->envrt[env_count])
 		env_count++;
-	data.envrt = malloc(sizeof(char) * (data.arg_count + env_count));
+	data->envrt = malloc(sizeof(char) * (data->arg_count + env_count));
 	i = -1;
-	while ((data.arg_count - 1) > ++i)
+	while ((data->arg_count - 1) > ++i)
 	{
-		new = data.arg[i + 1];
-		data.envrt[env_count + i] = ft_strdup(new);
+		new = data->arg[i + 1];
+		data->envrt[env_count + i] = ft_strdup(new);
 	}
-	data.envrt[env_count + data.arg_count] = "\0";
-	return (0);
+	data->envrt[env_count + data->arg_count] = "\0";
+	return;
 }
 
-void	export(t_data data)
+void	export(t_env *env)
 {
 	int i;
 	i = 0;
-	if (data.arg_count == 1)
+
+	if (data->arg_count == 1)
+		printf("wertasd");
+	else if (data->arg_count >= 2)
 	{
-		while (data.envrt[i])
-            printf("declare -x %s\n", data.envrt[i++]);
-	}
-	else if (data.arg_count >= 2)
-	{
-		if (export2(data) >= 2)
-			ft_error("export/ 2 arg hatası ", 0);
+		export2();
+		//ft_error("export/ 2 arg hatası ", 0);
 	}
 	return;	
 }
