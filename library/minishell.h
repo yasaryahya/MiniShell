@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/08 01:05:06 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/10 15:08:06 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@
 typedef struct s_env
 {
 	char			*data;
-	bool			is_env_equal;
 	struct s_env	*next;
-	//struct s_env	*prev;
 }		t_env;
 
 
@@ -49,7 +47,6 @@ typedef struct s_data
 }	t_data;
 
 t_data		*data;
-t_env		*env;
 void		minishell(t_data *data);
 
 void		ft_sig(int sig);
@@ -64,12 +61,12 @@ void		ft_envadd_back(t_env **lst, t_env *new);
 void		ft_env(t_data *base);
 void		free_list(void);
 
-int 		set_env(char **envp);
-void	    env_print(void);
+int 		set_env(t_data *data, char **envp);
+void	    env_print(t_data *data);
 int			env_struct(t_data *base, char *new_arg);
 char		**env_split(char *src);
 char		*find_chr_ret_str(char *str, char c, int status);
-
+void		export(t_data *data);
 //function
 void		ft_echo(t_data *data);
 void		ft_pwd(void);
@@ -88,6 +85,6 @@ void		cd(t_data *data);
 //void		export(t_env *env);
 //void		export2(void);
 void		command(t_data *data);
-void 		clearEnvList();
+void   		clearEnvList(t_data *data);
 void		ft_free_str(char **str);
 #endif

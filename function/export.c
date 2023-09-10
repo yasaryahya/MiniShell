@@ -6,14 +6,14 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/08 01:05:04 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/10 14:56:10 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 // dikkat et ft_strdup var!!!
 
-/*
+
 void	export2(void)
 {
 	int 	env_count;
@@ -34,18 +34,15 @@ void	export2(void)
 	return;
 }
 
-void	export(t_env *env)
+void	export(t_data *data)
 {
-	int i;
-	i = 0;
-
 	if (data->arg_count == 1)
 		printf("wertasd");
 	else if (data->arg_count >= 2)
 	{
-		export2();
+		printf("dfgh");
+		//export2();
 		//ft_error("export/ 2 arg hatası ", 0);
 	}
 	return;	
 }
-*/

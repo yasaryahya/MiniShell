@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/08 00:49:27 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/10 15:56:13 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	minishell(t_data *data)
 		while(str[++i])
 			count++;
 		data->arg_count = count;
-		printf("aaa %d", count);
+		printf("count: %d\n", count);
 		data->arg = str;
 		parse(data);
 		ft_malloc_error(str);
@@ -46,14 +46,14 @@ void	minishell(t_data *data)
 }
 
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envarment)
 {
 	(void)argc;
 	(void)argv;
 	t_data data;
-	data.envrt = env;
-	set_env(env);
+	data.envrt = envarment;
+	set_env(&data, envarment);
 	minishell(&data);
-	clearEnvList();
+	clearEnvList(&data);
 	return (0);
 }
