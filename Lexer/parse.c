@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/10 15:07:54 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/11 04:26:57 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	 ilkarguman(t_data *data)
 		else if (ft_strncmp(data->arg[0], "cd", ft_strlen(data->arg[0])) == 0)
 		 	cd(data);
 		else if (ft_strncmp(data->arg[0], "env", ft_strlen(data->arg[0])) == 0)
-		 	env_print(data);
+		 	env_print(data, 0);
 		else if (ft_strncmp(data->arg[0], "export", ft_strlen(data->arg[0])) == 0)
 			export(data);
 		else if (ft_strncmp(data->arg[0], "unset", ft_strlen(data->arg[0])) == 0)

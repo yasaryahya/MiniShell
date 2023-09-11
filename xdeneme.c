@@ -1,108 +1,53 @@
-
 /*
-#include <stdio.h>
-#include <stdlib.h>
 
-// Çevresel değişkenleri tutmak için kullanılacak struct
-struct t_env {
-    char *name;
-    char *value;
-    struct t_env *next;
-};
-
-// Yeni bir çevresel değişken ekler
-struct t_env *addVariable(struct t_env *head, char *name, char *value)
+void free_2d_array(char **array, int rows)
 {
-    struct t_env *newVar;
-	newVar = (struct t_env *)malloc(sizeof(struct t_env));
-    if (newVar == NULL) {
-        perror("Bellek tahsis hatası");
-        exit(EXIT_FAILURE);
-    }
-
-    newVar->name = name;
-    newVar->value = value;
-    newVar->next = head;
-
-    return newVar;
-}
-
-// Çevresel değişkenleri görüntüler
-void printVariables(struct t_env *head)
-{
-    struct t_env *current = head;
-    while (current != NULL)
+	int i = 0;
+    while (i < rows)
 	{
-        printf("%s=%s\n", current->name, current->value);
-        current = current->next;
-    }
+        free(array[i]);
+		i++;
+	}
+    free(array);
 }
 
-int main(int argc, char *argv[], char *envp[]) {
-    // Çevresel değişkenleri tutacak olan başlangıç düğümü (head)
-    struct t_env *envList = NULL;
-
-    // envp dizisini kullanarak çevresel değişkenleri structa ekleyin
-    for (int i = 0; envp[i] != NULL; i++) {
-        char *envVar = envp[i];
-        char *name = strtok(envVar, "=");
-        char *value = strtok(NULL, "=");
-        envList = addVariable(envList, name, value);
-    }
-
-    // Çevresel değişkenleri görüntüle
-    printVariables(envList);
-
-    // Belleği temizle
-    while (envList != NULL) {
-        struct t_env *temp = envList;
-        envList = envList->next;
-        free(temp);
-    }
-
-    return 0;
-}
-
-
-
-char *find_value(char *key, char **envp)
+char **export2(t_data *data)
 {
     int i = 0;
-
-    while (envp[i])
+    int j = 0;
+    
+    char **new_env = (char **)malloc((data->env_count + data->arg_count + 1) * sizeof(char *));
+    if (!new_env)
+        ft_error("export/ malloc hatası", 1);
+    while (i < data->env_count)
     {
-        if (ft_strncmp(envp[i], key, ft_strlen(key)) == 0)
-            return (envp[i] + ft_strlen(key) + 1);
+        new_env[i] = strdup(data->envrt[i]);
+        if (!new_env[i])
+            ft_error("export/ malloc hatası", 1);
         i++;
     }
-    return ("");
+    while (j + 1 < data->arg_count)
+    {
+        new_env[i + j] = strdup(data->arg[j+1]);
+        if (!new_env[i+j])
+            ft_error("export/ malloc hatası", 1);
+        j++;
+    }
+    new_env[i + j] = NULL;
+    return new_env;
 }
 
-char *find_path(char *cmdline, char **envp)
+void export(t_data *data)
 {
-    int i = 0;
-    char *temp;
-    char *new_path;
-    char **paths;
-    struct stat a;
-
-    temp = find_value("PATH", envp);
-    paths = ft_split(temp, ':');
-    while (paths[i])
+    if (data->arg_count == 1)
+        env_print(data, 1);
+    else if (data->arg_count >= 2)
     {
-        temp = ft_strjoin(paths[i], "/");
-        new_path = ft_strjoin(temp, cmdline);
-        free(temp);
-
-        if (stat(new_path, &a) == 0)
-        {
-            ft_malloc_error(paths);
-            return (new_path);
-        }
-        free(new_path);
-        i++;
+        char **merged_env = export2(data);
+        //if (data->envrt)
+        //    free_2d_array(data->envrt, data->env_count); // Eski çevresel değişkenleri serbest bırakma
+        data->envrt = merged_env; // Çevresel değişkenleri yeni merged_env ile güncelleme
     }
-    ft_malloc_error(paths);
-    return (ft_strdup(cmdline));
+    // arg_count 0 ise dönmek yeterli; başka bir işlem gerekmez.
 }
 */
