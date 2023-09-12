@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:38:35 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/05 18:50:15 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/11 17:11:44 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,10 @@ void	ft_error(char *str, int flag)
 	else
 		printf("%s", str);
 	return;
+}
+
+void	mallocerror(void)
+{
+	printf("malloc error");
+	exit(1);
 }

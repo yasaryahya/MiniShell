@@ -1,89 +1,99 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/12 01:26:57 by yyasar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../library/minishell.h"
 
-t_env   *esitsayisi(t_env *newNode, int count, int len, char *str)
+t_env	*esitsayisi(t_env *new_node, int count, int len, char *str)
 {
-    if (newNode)
-    {
-        if (count == 1)
-        {
-            newNode->first = ft_substr(str, 0, len);
-            newNode->second = ft_substr(str, len, (ft_strlen(str)-len));
-        }
-        else if (count > 1)
-        {   
-            char *s = ft_strjoin("=\"", (ft_strchr(str, 61)+1));
-            newNode->first = ft_substr(str, 0, len);
-            newNode->second = ft_strjoin(s, "\"");
-            free(s);
-        }
-        else
-        {
-            newNode->first = ft_strdup(str);
-            newNode->second = ft_strdup("");
-        }
-        newNode->data = ft_strdup(str);
-        newNode->next = NULL;
-    }
-    return newNode;
+	char	*s;
+
+	if (new_node)
+	{
+		if (count == 1)
+		{
+			new_node->first = ft_substr(str, 0, len);
+			new_node->second = ft_substr(str, len, (ft_strlen(str) - len));
+		}
+		else if (count > 1)
+		{
+			s = ft_strjoin("=\"", (ft_strchr(str, 61) + 1));
+			new_node->first = ft_substr(str, 0, len);
+			new_node->second = ft_strjoin(s, "\"");
+			free(s);
+		}
+		else
+		{
+			new_node->first = ft_strdup(str);
+			new_node->second = ft_strdup("");
+		}
+		new_node->data = ft_strdup(str);
+		new_node->next = NULL;
+	}
+	return (new_node);
 }
 
-t_env   *createEnvNode(char *str)
+t_env	*create_env_node(char*str)
 {
-    int len = 0;
-    int count = 0;
-    while (str[len])
-    {
-        if (str[len] == '=')
-            count++;
-        len++;
-    }
-    len = 0;
-    while (str[len])
-    {
-        if (str[len] == '=')
-            break;
-        len++;
-    }
-    t_env *newNode = (t_env *)malloc(sizeof(t_env));
-    return(esitsayisi(newNode, count, len, str));
+	int		len;
+	int		count;
+	t_env	*new_node;
+
+	len = 0;
+	count = 0;
+	while (str[len])
+	{
+		if (str[len] == '=')
+			count++;
+		len++;
+	}
+	len = 0;
+	while (str[len])
+	{
+		if (str[len] == '=')
+			break ;
+		len++;
+	}
+	new_node = (t_env *)malloc(sizeof(t_env));
+	return (esitsayisi(new_node, count, len, str));
 }
 
-void    appendEnvNode(char *str, t_env **envList)
+void	append_env_node(char *str, t_env **env_list)
 {
-    t_env *newNode = createEnvNode(str);
-    if (!newNode)
-        ft_error("set_env/ bellek hatası", 1);
-    if (!(*envList))
-        *envList = newNode;
-    else
-    {
-        t_env *temp = *envList;
-        while (temp->next)
-            temp = temp->next;
-        temp->next = newNode;
-    }
+	t_env	*temp;
+	t_env	*new_node;
+
+	new_node = create_env_node(str);
+	if (!new_node)
+		ft_error("set_env/ bellek hatası", 1);
+	if (!(*env_list))
+		*env_list = new_node;
+	else
+	{
+		temp = *env_list;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new_node;
+	}
 }
 
-int set_env(t_data *data)
+int	set_env(t_data *data)
 {
-    int i;
+	int		i;
+	t_env	*env_list;
 
-    i = -1;
-    t_env *envList = NULL;
-    while (data->envrt[++i] != NULL)
-        appendEnvNode(data->envrt[i], &envList);
-    data->env = envList;
-    return (1);
-}
-
-void    clearEnvList(t_data *data)
-{
-    t_env *current = data->env;
-    while (current) {
-        t_env *next = current->next;
-        free(current->data);
-        free(current);
-        current = next;
-    }
-    current = NULL;
+	i = -1;
+	env_list = NULL;
+	while (data->envrt[++i] != NULL)
+		append_env_node(data->envrt[i], &env_list);
+	data->env = env_list;	
+	return (1);
 }

@@ -86,7 +86,7 @@ void command(t_data *data)
 
     if (komut == NULL || strcmp(komut, "") == 0)
     {
-        ft_error("Komut bulunamadı", 0);
+        printf("Komut Bulunamadı.\n");
         free(cmd);
         return;
     }
