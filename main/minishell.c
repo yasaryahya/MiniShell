@@ -6,12 +6,12 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/12 02:45:49 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/13 02:58:25 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
-
+/*
 int karakterinPozisyonunuBul(const char *str, char karakter) {
     char *sonuc = strchr(str, karakter);
     if (sonuc != NULL) {
@@ -19,7 +19,7 @@ int karakterinPozisyonunuBul(const char *str, char karakter) {
     }
     return -1; // Karakter bulunamazsa -1 döner
 }
-
+*/
 void	init(t_data *data, char *command)
 {
 	int		count;
@@ -81,21 +81,33 @@ void	pipe_fonksiyon(t_data *data)
 	int i;
 	int j;
 	char *str;
-	int flag;
+	char *fullstr;
 
 	i = 0;
 	j = 0;
 	flag = 0;
 	while(data->b_arg[i])
 	{
-		if(data->b_arg[i] == '|' || data->b_arg[i] == '<' || data->b_arg[i] == '>')
+		if(data->b_arg[i] == '|')
+			fullstr = ft_strjoin(fullstr, " | ");
+		else if(data->b_arg[i] == '>')
+			fullstr = ft_strjoin(fullstr, " | ");
+		else if(data->b_arg[i] == '<')
+			fullstr = ft_strjoin(fullstr, " | ");
+		else if(data->b_arg[i] == ';')
+			fullstr = ft_strjoin(fullstr, " | ");
+		else if(data->b_arg[i] == '"' | data->b_arg[i] == '\'')
 		{
-			str[j] = ' ';
-			j++;
+			i++;
+			while(data->b_arg[i])
+			{
+				if(data->b_arg[i] == '"' | data->b_arg[i] == '\'')
+					break;
+				else 
+					str =
+			}
 		}
-		str[j] = data->b_arg[i];
-		j++;
-		i++;
+		
 	}
 	return (str);
 }
