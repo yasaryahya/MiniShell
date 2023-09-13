@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/12 01:26:57 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/13 04:22:01 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	set_env(t_data *data)
 	env_list = NULL;
 	while (data->envrt[++i] != NULL)
 		append_env_node(data->envrt[i], &env_list);
-	data->env = env_list;	
+	data->env = env_list;
+	//free_env(&env_list);	
 	return (1);
 }

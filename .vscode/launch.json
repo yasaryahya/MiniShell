@@ -1,31 +1,17 @@
 {
     "configurations": [
         {
-            "name": "C/C++: clang etkin dosyayı derle ve dosyada hata ayıkla",
+            "name": "(lldb) Başlat",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "program": "Program adını girin, örneğin: ${workspaceFolder}/a.out",
             "args": [],
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
-            "MIMode": "lldb",
-            "preLaunchTask": "C/C++: clang etkin dosyayı derle"
+            "MIMode": "lldb"
         },
-        {
-            "name": "C/C++: gcc etkin dosyayı derle ve dosyada hata ayıkla",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
-            "preLaunchTask": "C/C++: gcc etkin dosyayı derle"
-        }
     ],
     "version": "2.0.0"
 }

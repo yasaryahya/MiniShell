@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:38:35 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/11 17:11:44 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/13 02:26:20 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,18 @@ void	ft_error(char *str, int flag)
 	return;
 }
 
-void	mallocerror(void)
+void	free_env(t_env **env)
 {
-	printf("malloc error");
-	exit(1);
+	t_env	*tmp;
+
+	while (*env != NULL)
+	{
+		tmp = (*env)->next;
+		free((*env)->data);
+		free((*env)->first);
+		free((*env)->second);
+		free(*env);
+		(*env) = tmp;
+	}
+	*env = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:52:21 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/12 06:57:13 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/13 08:45:06 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void unset_delete(t_data *shell_data, const char *key, char **new_envrt)
 
 void	unset(t_data *data)
 {
+	//char	**new_arg;
 	if (data->arg_count == 1)
 		return ;
 	else if (data->arg_count > 1)
@@ -51,12 +52,12 @@ void	unset(t_data *data)
 		i = 1;
     	while (i < data->arg_count)
 		{
-			char **new_envrt = data->envrt;
-			new_envrt =(char **)malloc(sizeof(char *) * data->env_count + 2);
+			char **new_envrt = (char **)malloc(sizeof(char *) * data->env_count + 2);
 			if (!new_envrt)
 				ft_error("unset/ malloc error", 1);
+			new_envrt = data->envrt;
     		unset_delete(data, data->arg[i], new_envrt);
-			free(new_envrt);
+			//free(new_envrt);
 			i++;
 		}
 	}

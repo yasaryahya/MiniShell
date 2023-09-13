@@ -6,33 +6,45 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:39:21 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/11 19:44:43 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/13 08:34:49 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
+int	direct_printf(t_data *data)
+{
+	char *new = NULL;
+	int i;
+
+	new = (char *)malloc(sizeof(char) * ft_strlen(data->env->second));
+	if (!new)
+		ft_error("env_print/ malloc error", 1);
+	new = data->env->second;
+	i = 1;
+	printf("=");
+	int j = (ft_strlen(new) - 1);
+	while (++i < j)
+		printf("%c", new[i]);
+	new[ft_strlen(new) - 1] = '\0';
+	printf("\n");
+	free(new);
+	return (-42);
+}
+
 void	control_and_printf(t_data *data)
 {
-	char *new;
 	int i;
 	while(data->env)
-	{
-		printf("%s", data->env->first);
-		if(data->env->second[1] == '"')
-		{
-			new = (char *)malloc(sizeof(char) * ft_strlen(data->env->second));
-			new = data->env->second;
-			i = 1;
-			printf("=");
-			int j = (ft_strlen(new) - 1);
-			while (++i < j)
-				printf("%c", new[i]);
-			new[ft_strlen(new) - 1] = '\0';
-			printf("\n");
-			free(new);
-		}
-		else
+	{	
+		i = 0;
+		if(data->env->second[0] != '=')	
+			i = -42;
+		if (i != -42)
+			printf("%s", data->env->first);
+		if (data->env->second[1] == '"')
+			i = direct_printf(data);
+		if (i != -42)
 			printf("%s\n", data->env->second);
 		data->env = data->env->next;
 	}
