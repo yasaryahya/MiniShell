@@ -1,53 +1,75 @@
 /*
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 
-void free_2d_array(char **array, int rows)
+int pipe_command(char** commands)
 {
-	int i = 0;
-    while (i < rows)
-	{
-        free(array[i]);
-		i++;
-	}
-    free(array);
+    // Komutlar bir dizi olarak verilir.
+    if (!commands) {
+        return -1;
+    }
+
+    // Her komut için bir işlem oluşturulur.
+    pid_t pids[count(commands)];
+    int fds[2][count(commands) - 1];
+    for (int i = 0; i < count(commands); i++)
+    {
+        if (pipe(fds[i % 2]) < 0) {
+            return -1;
+        }
+
+        pids[i] = fork();
+        if (pids[i] < 0) {
+            return -1;
+        }
+
+        if (pids[i] == 0) {
+            // Arka planda çalışan işlem
+            if (i > 0) {
+                dup2(fds[(i - 1) % 2][0], STDIN_FILENO);
+                close(fds[(i - 1) % 2][0]);
+            }
+
+            if (i < count(commands) - 1) {
+                dup2(fds[i % 2][1], STDOUT_FILENO);
+                close(fds[i % 2][1]);
+            }
+
+            execvp(commands[i], commands + i);
+            exit(1);
+        }
+    }
+
+    // Tüm işlemler tamamlanana kadar bekleyin.
+    for (int i = 0; i < count(commands); i++) {
+        waitpid(pids[i], NULL, 0);
+    }
+
+    // Hataları işleyin.
+    for (int i = 0; i < count(commands); i++) {
+        int status;
+        waitpid(pids[i], &status, 0);
+        if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
+            return -1;
+        }
+    }
+
+    return 0;
 }
 
-char **export2(t_data *data)
+int main()
 {
-    int i = 0;
-    int j = 0;
-    
-    char **new_env = (char **)malloc((data->env_count + data->arg_count + 1) * sizeof(char *));
-    if (!new_env)
-        ft_error("export/ malloc hatası", 1);
-    while (i < data->env_count)
+    char* commands[] = {"ls -al", "> output.txt", "wc -l output.txt"};
+
+    int ret = pipe_command(commands);
+    if (ret < 0)
     {
-        new_env[i] = strdup(data->envrt[i]);
-        if (!new_env[i])
-            ft_error("export/ malloc hatası", 1);
-        i++;
+        perror("pipe_command");
+        return 1;
     }
-    while (j + 1 < data->arg_count)
-    {
-        new_env[i + j] = strdup(data->arg[j+1]);
-        if (!new_env[i+j])
-            ft_error("export/ malloc hatası", 1);
-        j++;
-    }
-    new_env[i + j] = NULL;
-    return new_env;
+    return 0;
 }
 
-void export(t_data *data)
-{
-    if (data->arg_count == 1)
-        env_print(data, 1);
-    else if (data->arg_count >= 2)
-    {
-        char **merged_env = export2(data);
-        //if (data->envrt)
-        //    free_2d_array(data->envrt, data->env_count); // Eski çevresel değişkenleri serbest bırakma
-        data->envrt = merged_env; // Çevresel değişkenleri yeni merged_env ile güncelleme
-    }
-    // arg_count 0 ise dönmek yeterli; başka bir işlem gerekmez.
-}
 */

@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/14 02:26:51 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 21:14:37 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 void lexer_utils(t_data *data) {
     int flag;
     int i;
-    char *str;
 
     data->lexer->tek_tirnak = 0;
     data->lexer->cift_tirnak = 0;
     flag = 1;
-
-    str = ft_strdup(" ");
-    str = ft_strjoin(data->lexer->full_str, str);
     i = data->lexer->index;
 
     while (data->b_arg[i]) {
@@ -44,14 +40,18 @@ void lexer_utils(t_data *data) {
             flag = 1;
             break;
         }
-        str = ft_strjoin_char(str, data->b_arg[i]);
+        else if(data->lexer->cift_tirnak && data->b_arg[i] == '$')
+        {
+            data->lexer->index = i+1;
+			dollar_token(data);
+			i = data->lexer->index;
+        }
+        data->lexer->full_str = ft_strjoin_char(data->lexer->full_str, data->b_arg[i]);
         i++;
     }
-    str = ft_strjoin_char(str, data->b_arg[i]);
-    str = ft_strjoin_char(str, ' ');
-    data->lexer->full_str = ft_strjoin(str, "");
+    data->lexer->full_str = ft_strjoin_char(data->lexer->full_str, data->b_arg[i]);
+    data->lexer->full_str = ft_strjoin_char(data->lexer->full_str, ' ');
     data->lexer->index = i;
-    free(str); // Belleği serbest bırak
 }
 
 char *ft_strjoin_char(char *s, char c) {

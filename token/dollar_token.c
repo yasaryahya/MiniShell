@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 06:44:49 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 22:16:31 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	dollar_token(t_data *data)
 		str = ft_strjoin_char(str, data->b_arg[i]);
 		i++;
 	}
-	//printf("%s", str);
 	int j = ft_check_strdup(data, str, 0, 0);
 	if(j > 0)
 	{
@@ -37,7 +36,7 @@ void	dollar_token(t_data *data)
 			str_2 = ft_strjoin_char(str_2,data->envrt[j][x]);
 			a++;
 			x++;
-		}	
+		}
 	}
 	
 	data->lexer->full_str = ft_strjoin(data->lexer->full_str, str_2);

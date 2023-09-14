@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/14 10:05:43 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 23:47:23 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <readline/history.h>
 # include <string.h>
 # include <stdbool.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 typedef	struct s_lexer
 {
@@ -56,6 +59,7 @@ typedef struct s_data
 	int		env_count;
 // tum env'nin oldugu yer.
 	char	**envrt;
+	int		pipe_count;
 // env'lerin list olarak tutuldugu struct.
 	t_env	*env;
 	t_lexer	*lexer;

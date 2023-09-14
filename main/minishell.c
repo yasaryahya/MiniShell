@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 05:40:59 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 23:27:03 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void minishell(t_data *data)
 		if (command == NULL)
 			ft_sig(4);
 		//if(history_control(command));
-			add_history(command);
+		add_history(command);
 		init(data, command);
-		parse(data);
+		//if(!pipe_control(data))
+			parse(data);
 		free(data->lexer->full_str);
 	}
 }
@@ -62,7 +63,10 @@ void lexer(t_data *data)
 	while (data->b_arg[i])
 	{
 		if (data->b_arg[i] == '|')
+		{
+			data->pipe_count += 1;
 			data->lexer->full_str = ft_strjoin(data->lexer->full_str, " | ");
+		}
 		else if (data->b_arg[i] == '>')
 			data->lexer->full_str = ft_strjoin(data->lexer->full_str, " > ");
 		else if (data->b_arg[i] == '<')
@@ -89,7 +93,8 @@ void lexer(t_data *data)
 	}
 }
 
-int main(int argc, char **argv, char **envarment) {
+int main(int argc, char **argv, char **envarment)
+{
 	t_data data;
 
 	(void)argc;
