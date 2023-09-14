@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:52:21 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/13 08:45:06 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/13 22:06:08 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void unset_delete(t_data *shell_data, const char *key, char **new_envrt)
 
     if (index_to_remove != -1)
     {
-        free(shell_data->envrt[index_to_remove]);
-
+        shell_data->envrt[index_to_remove] = NULL;
         for (int i = index_to_remove; i < shell_data->env_count - 1; i++)
         {
             new_envrt[i] = shell_data->envrt[i + 1];

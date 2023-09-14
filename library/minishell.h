@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/13 09:14:43 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 03:50:07 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ void		minishell(t_data *data);
 void		ft_sig(int sig);
 void		parse(t_data *data);
 
-//		free--error
+//	free--error
 void		ft_error(char *str, int flag);
 void		free_env(t_env **env);
 
 //void		ENVironment();
 void		ilkarguman(t_data *data);
-void		tirnak_kontrol(t_data *data);
+int			tirnak_kontrol(t_data *data);
 t_env		*ft_newenv(void *content);
 t_env		*ft_envlast(t_env *lst);
 void		ft_envadd_back(t_env **lst, t_env *new);
@@ -86,14 +86,14 @@ void		append_env_node(char *str, t_env **env_list);
 t_env		*create_env_node(char *str);
 t_env		*esitsayisi(t_env *newNode, int count, int len, char *str);
 
-//	UNSET
+//	  UNSET
 void		unset(t_data *data);
 void		unset_delete(t_data *shell_data, const char *key, char **new_envrt);
 
 int			env_struct(t_data *base, char *new_arg);
 char		**env_split(char *src);
 char		*find_chr_ret_str(char *str, char c, int status);
-//function
+//  FUNCTION
 void		ft_echo(t_data *data);
 void		ft_pwd(void);
 void		bin_ls(void);
@@ -101,8 +101,14 @@ void		bin_ls(void);
 void		ft_exit(t_data *data);
 void		cd(t_data *data);
 
+//	 EXPORT
 void		export(t_data *data);
 void		add_export(t_data *data, char **new_envrt, int i, int j);
+int			ft_check_strdup(t_data *data, char *str, int i, int j);
+int			check_arg_envrt(t_data *data);
+int			check_arg(t_data *data);
+
+
 void		command(t_data *data);
 //void   		clearEnvList(t_data *data);
 void		ft_free_str(char **str);

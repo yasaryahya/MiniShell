@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/11 21:09:22 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 03:51:40 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	 ilkarguman(t_data *data)
 	return ;
 }
 
-void tirnak_kontrol(t_data *data)
+int tirnak_kontrol(t_data *data)
 {
     bool inside_double_quotes = false;
     bool inside_single_quotes = false;
@@ -57,16 +57,19 @@ void tirnak_kontrol(t_data *data)
     }
 
     if (inside_double_quotes || inside_single_quotes) {
-        ft_error("parse/ tırnak hatalı", 0);
+        ft_error("parse/ tırnak hatalı\n", 0);
+		return 0;
     }
+	return 1;
 }
 
 
 
 void	parse(t_data *data)
 {
-	tirnak_kontrol(data);
-	ilkarguman(data);
+	
+	if(tirnak_kontrol(data))
+		ilkarguman(data);
 	
 	return ;
 }
