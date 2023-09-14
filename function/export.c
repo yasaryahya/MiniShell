@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/13 09:48:59 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/13 10:00:27 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	check_arg(t_data *data)
 	int i;
 	int j;
 	
-	i = 0;
+	i = 1;
 	while (data->arg_count > i)
 	{
-		j = 0;
-    	while (data->arg[j] != NULL)
+		j = 1;
+    	while (data->arg[2] != NULL)
 		{
       		if (ft_strncmp(data->arg[i], data->arg[j], ft_strlen(data->arg[j])) == 0)
 			{
