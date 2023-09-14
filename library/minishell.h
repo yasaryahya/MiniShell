@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/14 03:50:07 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 05:31:55 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,9 @@ void		init(t_data *data, char *command);
 void		lexer(t_data *data);
 void		lexer_utils(t_data *data);
 char 		*ft_strjoin_char(char *s, char c);
+
+//	TOKEN
+
+void		dollar_token(t_data *data);
+
 #endif

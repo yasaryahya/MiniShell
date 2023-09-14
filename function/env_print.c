@@ -6,12 +6,16 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:39:21 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/13 08:34:49 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 05:26:38 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
+/**
+ * @brief env komutu geldiği zaman eşittiri yazdıran ve eşittirden sonraki
+ *	stringin baş ve sonundaki " işaretini kaldırıp yazan fonk.
+ */
 int	direct_printf(t_data *data)
 {
 	char *new = NULL;
@@ -32,6 +36,10 @@ int	direct_printf(t_data *data)
 	return (-42);
 }
 
+/**
+ * @brief env komutu geldiği zaman second(eşittirden sonrası)
+ * varsa "çift tırnakları" kaldırır
+ */
 void	control_and_printf(t_data *data)
 {
 	int i;
@@ -50,6 +58,9 @@ void	control_and_printf(t_data *data)
 	}
 }
 
+/**
+ * @brief Envrt değişkenleri env veya export komutuna göre ekrana yazan fonk.
+ */
 void	env_print(t_data *data, int flag)
 {
 	if (data->arg_count > 1)

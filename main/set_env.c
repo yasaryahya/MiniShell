@@ -6,24 +6,24 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/13 04:22:01 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 05:05:13 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
+/**
+ * @brief gelen new_env stringini eşittirden öncesi ve eşittirden sonrası
+ * olarak ayırıyoruz, eşittirden öncesi t_env->first 'e atıyoruz, 
+ * eşittirden sonrasıda başına ve sonuna " işareti koyarak t_env->second'a atıyoruz.
+ */
 t_env	*esitsayisi(t_env *new_node, int count, int len, char *str)
 {
 	char	*s;
 
 	if (new_node)
 	{
-		if (count == 1)
-		{
-			new_node->first = ft_substr(str, 0, len);
-			new_node->second = ft_substr(str, len, (ft_strlen(str) - len));
-		}
-		else if (count > 1)
+		if (count >= 1)
 		{
 			s = ft_strjoin("=\"", (ft_strchr(str, 61) + 1));
 			new_node->first = ft_substr(str, 0, len);
@@ -41,6 +41,10 @@ t_env	*esitsayisi(t_env *new_node, int count, int len, char *str)
 	return (new_node);
 }
 
+/**
+ * @brief gelen envermant değişken stringini kontrol ediyoruz.
+ * eşittir varmı yokmu, varsa kaç tane var.
+ */
 t_env	*create_env_node(char*str)
 {
 	int		len;
@@ -66,6 +70,11 @@ t_env	*create_env_node(char*str)
 	return (esitsayisi(new_node, count, len, str));
 }
 
+/**
+ * @brief Envrt değişkenlerini List yapısına bağladığımız yer,
+ * gelen listi son düğüme ekliyoruz ve t_env tütürndeki structa
+ * verileri atıyoruz.
+ */
 void	append_env_node(char *str, t_env **env_list)
 {
 	t_env	*temp;
@@ -85,6 +94,10 @@ void	append_env_node(char *str, t_env **env_list)
 	}
 }
 
+/**
+ * @brief Envrt değişkenlerini ilk durumda List yapısına bağladığımız yer
+ * t_env tütürndeki struct verileri atıyoruz.
+ */
 int	set_env(t_data *data)
 {
 	int		i;

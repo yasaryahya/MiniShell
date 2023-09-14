@@ -6,13 +6,17 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 02:30:29 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 06:41:20 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 // dikkat et ft_strdup var!!!
 
+/**
+ * @brief export ile birden fazla argüman gelirse gerekli kontrolleri
+ * yapıp data->envrt ve t_env verilerine ekliyoruz.
+ */
 void    add_export(t_data *data, char **new_envrt, int i, int j)
 {
 	int 	x;
@@ -47,6 +51,10 @@ void    add_export(t_data *data, char **new_envrt, int i, int j)
 	data->envrt = new_envrt;
 }
 
+/**
+ * @brief export komutu geliyor tek argüman gelirse env_print'e atıyoruz
+ * birden fazla ise kontrol edip data->envrt ve t_env verilerine ekliyoruz.
+ */
 void export(t_data *data)
 {
 	char **new_envrt = NULL;

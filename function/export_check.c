@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 01:32:46 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 02:38:13 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 06:50:03 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_check_strdup(t_data *data, char *str, int i, int j)
 				break ;
 			j++;
 		}
-		if (ft_strncmp(data->envrt[i], str, (j - 1)) == 0)
+		if (ft_strncmp(data->envrt[i], str, j) == 0)
 			return (i);
 		i++;
 	}
@@ -72,19 +72,19 @@ int	check_arg_envrt(t_data *data)
 	int i;
 	int j;
 	
-	i = 0;
 	if (check_arg(data) == 0)
 		return (0);
+	i = 0;
 	while (data->arg[i] != NULL)
 	{
-		j = 1;
-    	while (data->arg[i + j] != NULL)
+		j = i+1;
+    	while (data->arg[j] != NULL)
 		{
       		if (ft_strncmp(data->arg[j], data->arg[i], ft_strlen(data->arg[i])) == 0)
 			{
         		data->arg[i] = NULL;
-				if (data->arg[i + 1])
-					data->arg[i] = data->arg[i + 1];
+				if (data->arg[j])
+					data->arg[i] = data->arg[j];
 				data->arg_count--;
 				break ;
       		}
