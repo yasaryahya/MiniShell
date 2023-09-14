@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/14 05:31:55 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 10:05:43 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void		add_export(t_data *data, char **new_envrt, int i, int j);
 int			ft_check_strdup(t_data *data, char *str, int i, int j);
 int			check_arg_envrt(t_data *data);
 int			check_arg(t_data *data);
+char		*nail_control_and_trim(char *str);
 
 
 void		command(t_data *data);

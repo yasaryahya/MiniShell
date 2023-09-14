@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 01:32:46 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 06:50:03 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 08:27:21 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_check_strdup(t_data *data, char *str, int i, int j)
 }
 
 
+
 /**
  * @brief Girdiğimiz arg'lar kontrol eder arguman'nın içinde
  *  sayı veya noktalama işareti var ise hatalı kullanım mesajı döndürür.
@@ -52,7 +53,8 @@ int	check_arg(t_data *data)
     	while (data->arg[i][j] != '\0')
 		{
 			c = data->arg[i][j];
-			if (!((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == 61)))
+			if (!((c >= 65 && c <= 90) || (c >= 97 && c <= 122)
+				|| (c == '=') || (c == '"') || (c == '\'')))
 			{
         		printf("export: not an identifier: %s\n", data->arg[i]);
 				return(0);

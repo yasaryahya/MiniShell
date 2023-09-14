@@ -6,12 +6,28 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 06:41:20 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/14 10:05:36 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 // dikkat et ft_strdup var!!!
+
+char	*nail_control_and_trim(char *str)
+{
+	char	*new;
+
+	new = (char *)malloc(sizeof(char)* ft_strlen(str));
+	if (!new)
+		ft_error("export/ malloc error", 1);
+	if (str[0] == '"')
+		new = ft_strtrim(str, "\"");
+	else if (str[0] == '\'')
+		new = ft_strtrim(str, "\"");
+	else
+		new = str;
+	return (new);
+}
 
 /**
  * @brief export ile birden fazla argüman gelirse gerekli kontrolleri
@@ -31,9 +47,10 @@ void    add_export(t_data *data, char **new_envrt, int i, int j)
 	}
 	while (j+1 < data->arg_count)
 	{   
+		data->arg[j+1] = nail_control_and_trim(data->arg[j+1]);
 		if (ft_check_strdup(data, data->arg[j+1], 0, 0) == -42)
 		{
-			new_envrt[i+j] = data->arg[j+1];
+			new_envrt[i+j] = nail_control_and_trim(data->arg[j+1]);
 			if (!new_envrt[i+j])
 				ft_error("export/ bellek hatası3", 1);
 			append_env_node(data->arg[j+1], &new_env);
