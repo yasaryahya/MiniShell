@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 23:27:03 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/15 05:09:19 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void init(t_data *data, char *command)
 	i = -1;
 	data->b_arg = command;
 	lexer(data);
+	space_one(data);
 	str = ft_split(data->lexer->full_str, ' ');
 	while (str[++i])
 		count++;

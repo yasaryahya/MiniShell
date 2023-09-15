@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 20:21:42 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 23:54:11 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/15 02:04:01 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-
+/*
 int pipe_command(char** arg)
 {
     // Komutlar bir dizi olarak verilir.
@@ -84,3 +84,4 @@ int main()
     }
     return 0;
 }
+*/

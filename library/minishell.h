@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/14 23:47:23 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/15 05:02:44 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 
 typedef	struct s_lexer
 {
-	char	*full_str;
+	char	*full_str; // parçalanmış şekilde argümanlar
+	char	*token_str;
 	int		index;
 	int		cift_tirnak;
 	int		tek_tirnak;
@@ -126,5 +127,9 @@ char 		*ft_strjoin_char(char *s, char c);
 //	TOKEN
 
 void		dollar_token(t_data *data);
+int			pipe_control(t_data *data);
+
+//	 UTİLS
+void    	space_one(t_data *data);
 
 #endif
