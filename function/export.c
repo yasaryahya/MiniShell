@@ -6,12 +6,27 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 10:05:36 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/18 05:23:48 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 // dikkat et ft_strdup var!!!
+
+char	**ft_free_envrt(char **tab)
+{
+	size_t	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
+}
+
 
 char	*nail_control_and_trim(char *str)
 {
@@ -23,7 +38,7 @@ char	*nail_control_and_trim(char *str)
 	if (str[0] == '"')
 		new = ft_strtrim(str, "\"");
 	else if (str[0] == '\'')
-		new = ft_strtrim(str, "\"");
+		new = ft_strtrim(str, "\'");
 	else
 		new = str;
 	return (new);
@@ -48,7 +63,7 @@ void    add_export(t_data *data, char **new_envrt, int i, int j)
 	while (j+1 < data->arg_count)
 	{   
 		data->arg[j+1] = nail_control_and_trim(data->arg[j+1]);
-		if (ft_check_strdup(data, data->arg[j+1], 0, 0) == -42)
+		if (ft_check_envrt(data, data->arg[j+1], 0, 0) == -42)
 		{
 			new_envrt[i+j] = nail_control_and_trim(data->arg[j+1]);
 			if (!new_envrt[i+j])
@@ -57,7 +72,7 @@ void    add_export(t_data *data, char **new_envrt, int i, int j)
 		}
 		else
 		{
-			x =	ft_check_strdup(data, data->arg[j+1], 0, 0);
+			x =	ft_check_envrt(data, data->arg[j+1], 0, 0);
 			new_envrt[x] = data->arg[j+1];
 		}
 		j++;
@@ -86,6 +101,6 @@ void export(t_data *data)
 		if (!new_envrt)
 			ft_error("export/ bellek hatası1", 1);
 		add_export(data, new_envrt, 0, 0);
-		//free(new_envrt);
 	}
+	//ft_free_envrt(new_envrt);
 }

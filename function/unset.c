@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:52:21 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 05:36:30 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/18 05:10:09 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,22 @@
 void unset_delete(t_data *shell_data, const char *key, char **new_envrt)
 {
     int index_to_remove = -1;
+	int i = 0;
 
-    for (int i = 0; i < shell_data->env_count; i++)
+	t_env	*temp = shell_data->env;
+    while (i < shell_data->env_count)
     {
-        if (ft_strncmp(shell_data->envrt[i], key, ft_strlen(key)) == 0)
+		
+        if (ft_strncmp(shell_data->envrt[i], key, ft_strlen(temp->first)) == 0)
         {
             index_to_remove = i;
             break;
         }
 		else
 			new_envrt[i] = shell_data->envrt[i];
+		temp = temp->next;
+		i++;
     }
-
     if (index_to_remove != -1)
     {
         shell_data->envrt[index_to_remove] = NULL;

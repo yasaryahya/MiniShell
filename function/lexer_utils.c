@@ -6,13 +6,14 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/15 03:01:46 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/18 02:35:09 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void lexer_utils(t_data *data) {
+void lexer_utils(t_data *data)
+{
     int flag;
     int i;
 
@@ -54,7 +55,8 @@ void lexer_utils(t_data *data) {
     data->lexer->index = i;
 }
 
-char *ft_strjoin_char(char *s, char c) {
+char    *ft_strjoin_char(char *s, char c)
+{
     char *new_str;
     size_t len;
 
@@ -82,27 +84,28 @@ char *ft_strjoin_char(char *s, char c) {
 }
 
 void    space_one(t_data *data)
- {
-        int i;
-        int flag;
-        char    *str;
-    
-        str = ft_strdup("");
-        i = 0;
-        while (data->lexer->full_str[i] == ' ' || data->lexer->full_str[i] == '\t')
-            i++;
-        while (data->lexer->full_str[i])
+{
+    int i;
+    int flag;
+    char    *str;
+
+    str = ft_strdup("");
+    i = 0;
+    while (data->lexer->full_str[i] == ' ' || data->lexer->full_str[i] == '\t')
+        i++;
+    while (data->lexer->full_str[i])
+    {
+        if (data->lexer->full_str[i] == ' ' || data->lexer->full_str[i] == '\t')
+            flag = 1;
+        if (!(data->lexer->full_str[i] == ' ' || data->lexer->full_str[i] == '\t'))
         {
-            if (data->lexer->full_str[i] == ' ' || data->lexer->full_str[i] == '\t')
-                flag = 1;
-            if (!(data->lexer->full_str[i] == ' ' || data->lexer->full_str[i] == '\t'))
-            {
-                if (flag)
-                    str = ft_strjoin_char(str, ' ');
-                flag = 0;
-                str = ft_strjoin_char(str, data->lexer->full_str[i]);
-            }
-            i++;
-        }  
-        data->lexer->full_str = str; 
+            if (flag)
+                str = ft_strjoin_char(str, ' ');
+            flag = 0;
+            str = ft_strjoin_char(str, data->lexer->full_str[i]);
+        }
+        i++;
+    }  
+    data->lexer->full_str = ft_strjoin(str, "");
+    free(str);
 }

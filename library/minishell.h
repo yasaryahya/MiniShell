@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/15 05:02:44 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/18 05:57:26 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+#include <stdbool.h>
 
 typedef	struct s_lexer
 {
@@ -33,7 +34,6 @@ typedef	struct s_lexer
 	int		cift_tirnak;
 	int		tek_tirnak;
 }		t_lexer;
-
 
 typedef struct s_env
 {
@@ -61,31 +61,34 @@ typedef struct s_data
 // tum env'nin oldugu yer.
 	char	**envrt;
 	int		pipe_count;
+	char	**cmd;
 // env'lerin list olarak tutuldugu struct.
 	t_env	*env;
 	t_lexer	*lexer;
+
 }	t_data;
 
 t_data		*data;
 
-//   main 
+//   main
+int			main(int argc, char **argv, char **envarment);
 void		minishell(t_data *data);
 
 void		ft_sig(int sig);
-void		parse(t_data *data);
+void	 	parse(t_data *data, char **cmd);
 
 //	free--error
 void		ft_error(char *str, int flag);
 void		free_env(t_env **env);
 
 //void		ENVironment();
-void		ilkarguman(t_data *data);
-int			tirnak_kontrol(t_data *data);
+void		ilkarguman(char **cmd);
+int			tirnak_kontrol(char *command);
 t_env		*ft_newenv(void *content);
 t_env		*ft_envlast(t_env *lst);
 void		ft_envadd_back(t_env **lst, t_env *new);
 
-int			set_env(t_data *data);
+int			init_env(t_data *data);
 void		env_print(t_data *data, int flag);
 void		append_env_node(char *str, t_env **env_list);
 t_env		*create_env_node(char *str);
@@ -99,23 +102,25 @@ int			env_struct(t_data *base, char *new_arg);
 char		**env_split(char *src);
 char		*find_chr_ret_str(char *str, char c, int status);
 //  FUNCTION
-void		ft_echo(t_data *data);
+void		ft_echo(char **cmd);
 void		ft_pwd(void);
 void		bin_ls(void);
 
 void		ft_exit(t_data *data);
-void		cd(t_data *data);
+void		cd(t_data *data, char **cmd);
 
 //	 EXPORT
 void		export(t_data *data);
 void		add_export(t_data *data, char **new_envrt, int i, int j);
-int			ft_check_strdup(t_data *data, char *str, int i, int j);
+int			ft_check_envrt(t_data *data, char *str, int i, int j);
 int			check_arg_envrt(t_data *data);
 int			check_arg(t_data *data);
 char		*nail_control_and_trim(char *str);
 
 
-void		command(t_data *data);
+void		command(t_data *data, char **command);
+char		*find_path(char *cmdline, t_data *data);
+
 //void   		clearEnvList(t_data *data);
 void		ft_free_str(char **str);
 void		init(t_data *data, char *command);
@@ -127,9 +132,19 @@ char 		*ft_strjoin_char(char *s, char c);
 //	TOKEN
 
 void		dollar_token(t_data *data);
-int			pipe_control(t_data *data);
+//int			pipe_control(t_data *data);
 
 //	 UTİLS
 void    	space_one(t_data *data);
+
+// 	  PİPE
+void		ft_pipe(t_data *data);
+int			comment(t_data *data, char **cmd, int input, int output, int x);
+void		redirection_to_input(char **cmd, int fd, int i);
+int			operation(char *x);
+char		**re_create_cmd(char **ex_cmd, int len, int i, int j);
+char		*create_path(char *cmd, char **cmd_paths);
+void		ft_free_malloc(char **tab);
+void		redirection_to_output(char **cmd, int i, int fd, int x);
 
 #endif

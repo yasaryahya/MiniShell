@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/14 05:05:13 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/18 06:45:56 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-/**
+/*
  * @brief gelen new_env stringini eşittirden öncesi ve eşittirden sonrası
  * olarak ayırıyoruz, eşittirden öncesi t_env->first 'e atıyoruz, 
  * eşittirden sonrasıda başına ve sonuna " işareti koyarak t_env->second'a atıyoruz.
@@ -98,7 +98,7 @@ void	append_env_node(char *str, t_env **env_list)
  * @brief Envrt değişkenlerini ilk durumda List yapısına bağladığımız yer
  * t_env tütürndeki struct verileri atıyoruz.
  */
-int	set_env(t_data *data)
+int	init_env(t_data *data)
 {
 	int		i;
 	t_env	*env_list;
@@ -108,6 +108,6 @@ int	set_env(t_data *data)
 	while (data->envrt[++i] != NULL)
 		append_env_node(data->envrt[i], &env_list);
 	data->env = env_list;
-	//free_env(&env_list);	
+//free_env(&env_list);	
 	return (1);
 }

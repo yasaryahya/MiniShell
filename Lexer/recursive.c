@@ -6,12 +6,12 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 04:29:33 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/15 08:42:30 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/15 10:45:04 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
-
+/*
 char *insert_string(char *dest, const char *src, int pos) {
     int dest_len = strlen(dest);
     int src_len = strlen(src);
@@ -121,3 +121,4 @@ char	*recursive_token(char *str)
 	
 	return(str);
 }
+*/

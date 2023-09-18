@@ -69,12 +69,12 @@ char *find_path(char *cmdline, t_data *data)
     }
     
     ft_free_str(paths);
-    return (NULL); // Komut dosyası bulunamadığında NULL döndürüyoruz
+    return (NULL);
 }
 
-void command(t_data *data)
+void command(t_data *data, char **command)
 {
-    char *cmd = ft_strdup(data->arg[0]);
+    char *cmd = ft_strdup(command[0]);
     
     if (cmd == NULL)
     {
@@ -103,7 +103,7 @@ void command(t_data *data)
 
     if (child_pid == 0)
     { // Çocuk süreç
-        if (execve(komut, data->arg, NULL) == -1)
+        if (execve(komut, command, NULL) == -1)
         {
             ft_error("execve hatası", 0);
             free(cmd);
