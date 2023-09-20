@@ -6,45 +6,46 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/18 06:42:29 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/19 06:18:05 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void	parsetwo(t_data *data, char **cmd)
+void	parsetwo(t_data *data)
 {
-	if (ft_strncmp(cmd[0], "echo", 4) == 0)
-		ft_echo(cmd);
-	else if (ft_strncmp(cmd[0], "pwd", 3) == 0)
+	int i = strlen(data->arg[0]);
+	if (ft_strncmp(data->arg[0], "echo", i) == 0)
+		ft_echo(data);
+	else if (ft_strncmp(data->arg[0], "pwd", i) == 0)
 		ft_pwd();
-	else if (ft_strncmp(cmd[0], "bin/ls", 7) == 0)
-		bin_ls();
-	else if (ft_strncmp(cmd[0], "cd", 2) == 0)
-		cd(data, cmd);
-	else if (ft_strncmp(cmd[0], "env", 3) == 0)
+	else if (ft_strncmp(data->arg[0], "/bin/ls", i) == 0)
+		bin_ls(data);
+	else if (ft_strncmp(data->arg[0], "cd", i) == 0)
+		cd(data);
+	else if (ft_strncmp(data->arg[0], "env", i) == 0)
 		env_print(data, 0);
-	else if (ft_strncmp(cmd[0], "export", 6) == 0)
+	else if (ft_strncmp(data->arg[0], "export", i) == 0)
 		export(data);
-	else if (ft_strncmp(cmd[0], "unset", 5) == 0)
+	else if (ft_strncmp(data->arg[0], "unset", i) == 0)
 		unset(data);
-	else if (ft_strncmp(cmd[0], "clear", 5) == 0)
+	else if (ft_strncmp(data->arg[0], "clear", i) == 0)
 		printf("\033[H\033[J");
-	else if (ft_strncmp(cmd[0], "exit", 4) == 0)
+	else if (ft_strncmp(data->arg[0], "exit", i) == 0)
 		ft_exit(data);
 	else
-		command(data, cmd);
+		command(data);
 }
 
-void	parse(t_data *data, char **cmd)
-{	
-	if (!cmd || !cmd[0])
+void	parse(t_data *data)
+{
+	if (!data->arg || !data->arg[0])
 	{
 		printf("Command is empty or invalid.\n");
 		return;
 	}
-	if(cmd)
-		parsetwo(data, cmd);
+	if(data)
+		parsetwo(data);
 }
 
 

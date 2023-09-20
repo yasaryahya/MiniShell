@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/19 03:52:17 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/19 23:17:20 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/19 23:18:11 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void	ft_sig(int sig)
+int	ft_strcmp(char *s1, char *s2)
 {
-	if (sig == 2)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == 3)
-		printf("%s", "\n");
-	else if (sig == 4)
-	{
-		printf("\nExit\n");
-		exit (0);
-	}
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }

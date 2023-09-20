@@ -6,56 +6,41 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 02:51:04 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/18 06:10:03 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/20 00:23:38 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 
-void ft_free_malloc(char **tab)
+char	**re_create_cmd(char **cmd, int len, int i, int j)
 {
-    size_t i = 0;
-    while (tab[i])
+    char	**cmdd;
+
+    while (cmd[++i])
     {
-        free(tab[i]);
-        i++;
+        if (!ft_strncmp(cmd[i], "<", 2) || !ft_strncmp(cmd[i], ">", 2)
+            || !ft_strncmp(cmd[i], "<<", 3)
+            || !ft_strncmp(cmd[i], ">>", 3))
+            i++;
+        else
+            len++;
     }
-    free(tab);
-}
-
-char	**re_create_cmd(char **ex_cmd, int len, int i, int j)
-{
-	char	**cmd;
-
-	while (ex_cmd[++i])
-	{
-		if (!ft_strncmp(ex_cmd[i], "<", 2) || !ft_strncmp(ex_cmd[i], ">", 2)
-			|| !ft_strncmp(ex_cmd[i], "<<", 3)
-			|| !ft_strncmp(ex_cmd[i], ">>", 3))
-			i++;
-		else
-			len++;
-	}
-	cmd = malloc(sizeof(char *) * (len + 1));
-	i = -1;
-	while (ex_cmd[++i])
-	{
-		if (!ft_strncmp(ex_cmd[i], "<", 2) || !ft_strncmp(ex_cmd[i], ">", 2)
-			|| !ft_strncmp(ex_cmd[i], "<<", 3)
-			|| !ft_strncmp(ex_cmd[i], ">>", 3))
-			i++;
-		else
-			cmd[j++] = ft_strdup(ex_cmd[i]);
-	}
-
-	// Move the call to ft_free_malloc() to the end of the function.
-	ft_free_malloc(ex_cmd);
-
-	return (cmd[j] = NULL, cmd);
+    cmdd = malloc(sizeof(char *) * (len + 1));
+    i = -1;
+    while (cmd[++i])
+    {
+        if (!ft_strncmp(cmd[i], "<", 2) || !ft_strncmp(cmd[i], ">", 2)
+            || !ft_strncmp(cmd[i], "<<", 3)
+            || !ft_strncmp(cmd[i], ">>", 3))
+            i++;
+        else
+            cmdd[j++] = ft_strdup(cmd[i]);
+    }
+    return (cmdd[j] = NULL, ft_free_malloc(cmd), cmdd);
 }
 
 
-int	operation(char *x)
+int	operation(char **cmd, int i)
 {
 	char	*input;
 	int		pipefd[2];
@@ -63,7 +48,7 @@ int	operation(char *x)
 	if (pipe(pipefd) == -1)
 		return (perror("Pipe is not created!\n"), exit(1), 1);
 	input = readline("> ");
-	while (ft_strncmp(input, x, ft_strlen(x) + 1))
+	while (ft_strncmp(input, cmd[i], ft_strlen(cmd[i]) + 1))
 	{
 		write(pipefd[1], input, ft_strlen(input));
 		write(pipefd[1], "\n", 1);
@@ -117,7 +102,7 @@ void	redirection_to_input(char **cmd, int fd, int i)
 		{
 			if (fd > 0)
 				close(fd);
-			fd = operation(cmd[i + 1]);
+			fd = operation(cmd, i+1);
 		}
 	}
 	i = -1;
@@ -135,69 +120,64 @@ void	redirection_to_input(char **cmd, int fd, int i)
 }
 
 
-int	comment(t_data *data, char **cmd, int input, int output, int x)
+int comment(t_data *data, char **cmd, int input, int output, int is_pipe)
 {
-	pid_t	pid;
-	int		pipefd[2];
+    pid_t pid;
+    int pipefd[2];
 
-	if (x && pipe(pipefd) == -1)
-		return (ft_error("Pipe is not created!", 1), 1);
-	pid = fork();
-	if (pid < 0)
-		return (ft_error("Fork is not created!!\n",1),1);
-	else if (pid == 0)
-	{
-		printf("pipe girdi\n");
-		dup2(input, 0);
-		if (input)
-			close(input);
-		redirection_to_input(cmd, 0, -1);
-		if (x)
-		{
-			close(pipefd[0]);
-			dup2(pipefd[1], 1);
-			close(pipefd[1]);
-		}
-		else
-			dup2(output, 1);
-		redirection_to_output(cmd, 0, 0, 0);
-
-		// Check if cmd is not null before calling re_create_cmd().
-		if (cmd)
-			cmd = re_create_cmd(cmd, 0, -1, 0);
-
-		// Check if cmd is still not null after calling re_create_cmd().
-		if (cmd)
-			parse(data, cmd);
-	}
-	if (x)
-		return (close(pipefd[1]), waitpid(pid, 0, 0), pipefd[0]);
-	waitpid(pid, 0, 0);
-	return (0);
+    if (is_pipe && pipe(pipefd) == -1)
+        return (ft_error("Pipe is not created!", 1), 1);
+    pid = fork();
+    if (pid < 0)
+        return (ft_error("Fork is not created!!\n", 1), 1);
+    else if (pid == 0)
+    {
+        dup2(input, 0);
+        if (input)
+            close(input);
+        redirection_to_input(cmd, 0, -1);
+        if (is_pipe)
+        {
+            close(pipefd[0]);
+            dup2(pipefd[1], 1);
+            close(pipefd[1]);
+        }
+        else
+            dup2(output, 1);
+        redirection_to_output(cmd, 0, 0, 0);
+        if (cmd)
+            cmd = re_create_cmd(cmd, 0, -1, 0);
+        if (cmd)
+        	parse(data);
+    }
+    if (is_pipe)
+        return (close(pipefd[1]), waitpid(pid, 0, 0), pipefd[0]);
+    waitpid(pid, 0, 0);
+    return (0);
 }
 
-
-
-void	ft_pipe(t_data *data)
+void ft_pipe(t_data *data)
 {
-	int		i;
-	int		fd;
-	char	**cmdd;
+    int i;
+    int fd;
+	char **cmdd;
 
-	i = -1;
-	fd = 0;
-	printf("pipe girdi\n");
-	data->cmd = ft_split(data->lexer->full_str, '|');
-	while (data->cmd[++i])
-	{
+    i = -1;
+    fd = 0;
+	
+    data->cmd = ft_split(data->lexer->full_str, '|');
+    while (data->cmd[++i])
+    {
+    	ft_free_malloc(data->arg);
+    	data->arg = ft_split(data->cmd[i], ' ');
 		cmdd = ft_split(data->cmd[i], ' ');
-		if (!i)
-			fd = comment(data, cmdd, 0, 1, 1);
-		else if (i == data->pipe_count)
-			comment(data, cmdd, fd, 1, 0);
-		else
-			fd = comment(data, cmdd, fd, 1, 1);
-		ft_free_malloc(cmdd);
-	}
-	data->pipe_count = 0;
+        if (!i)
+            fd = comment(data, cmdd, 0, 1, 1);
+        else if (i == data->pipe_count)
+            comment(data, cmdd, fd, 1, 0);
+        else
+            fd = comment(data, cmdd, fd, 1, 1);
+    }
+	ft_free_malloc(data->cmd);
+    data->pipe_count = 0;
 }

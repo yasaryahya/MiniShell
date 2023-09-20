@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:17:12 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/18 07:33:27 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/09/20 00:18:14 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void init(t_data *data, char *command)
 {
-	int count = 0;
-	int i = -1;
+	int count;
+	int i;
 
 	count = 0;
-	i = -1;
 	data->b_arg = command;
 	lexer(data);
 	space_one(data);
 	printf("Full str :%s\n", data->lexer->full_str);
 	tirnak_kontrol(data->lexer->full_str);
-	data->arg = ft_split(data->lexer->full_str, ' '); 
+	data->arg = ft_split(data->lexer->full_str, ' ');
+	i = -1;
 	while (data->arg[++i])
 		count++;
 	data->arg_count = count;
@@ -39,25 +39,20 @@ void init(t_data *data, char *command)
 void minishell(t_data *data)
 {
 	char *command;
-	char **cmd;
 
 	while (1)
 	{
 		signal(SIGQUIT, ft_sig);
 		signal(SIGINT, ft_sig);
 		command = readline("\033[31msalihshell$\033[0m ");
-		//int pid = getpid();
-		//printf("pid: %d\n", pid);
 		if (command == NULL)
 			ft_sig(4);
 		add_history(command);
 		init(data, command);
-		cmd = data->arg;
 		if(data->pipe_count == 0)
-			parse(data, cmd);
+			parse(data);
 		else
 			ft_pipe(data);
-		//pipe_token(data);
 		free(data->lexer->full_str);
 	}
 }

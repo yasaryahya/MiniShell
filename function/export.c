@@ -6,43 +6,36 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 04:29:48 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/18 05:23:48 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/20 03:31:30 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 // dikkat et ft_strdup var!!!
 
-char	**ft_free_envrt(char **tab)
+char *nail_control_and_trim(char *str)
 {
-	size_t	i;
+    char *new;
 
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
+    if (str[0] == '"' || str[0] == '\'')
+    {
+        new = ft_strtrim(str, "\"'");
+        if (!new)
+            ft_error("export/ malloc error", 1);
+    }
+    else
+    {
+        new = ft_strdup(str);
+        if (!new)
+            ft_error("export/ malloc error", 1);
+    }
+
+    // Eski belleği serbest bırak
+    free(str);
+
+    return (new);
 }
 
-
-char	*nail_control_and_trim(char *str)
-{
-	char	*new;
-
-	new = (char *)malloc(sizeof(char)* ft_strlen(str));
-	if (!new)
-		ft_error("export/ malloc error", 1);
-	if (str[0] == '"')
-		new = ft_strtrim(str, "\"");
-	else if (str[0] == '\'')
-		new = ft_strtrim(str, "\'");
-	else
-		new = str;
-	return (new);
-}
 
 /**
  * @brief export ile birden fazla argüman gelirse gerekli kontrolleri
@@ -61,17 +54,19 @@ void    add_export(t_data *data, char **new_envrt, int i, int j)
 		i++;
 	}
 	while (j+1 < data->arg_count)
-	{   
+	{
 		data->arg[j+1] = nail_control_and_trim(data->arg[j+1]);
 		if (ft_check_envrt(data, data->arg[j+1], 0, 0) == -42)
 		{
 			new_envrt[i+j] = nail_control_and_trim(data->arg[j+1]);
+			//printf("wd:%s\n", data->arg[j+i]);
 			if (!new_envrt[i+j])
 				ft_error("export/ bellek hatası3", 1);
 			append_env_node(data->arg[j+1], &new_env);
 		}
 		else
 		{
+			printf("wd:%s\n", data->arg[j+i]);
 			x =	ft_check_envrt(data, data->arg[j+1], 0, 0);
 			new_envrt[x] = data->arg[j+1];
 		}
@@ -102,5 +97,4 @@ void export(t_data *data)
 			ft_error("export/ bellek hatası1", 1);
 		add_export(data, new_envrt, 0, 0);
 	}
-	//ft_free_envrt(new_envrt);
 }

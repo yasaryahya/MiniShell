@@ -6,14 +6,14 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:22:08 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/18 03:39:54 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/19 01:16:07 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/minishell.h"
 #include <stdbool.h>
 
-void	ft_echo(char **cmd)
+void	ft_echo(t_data *data)
 {
 	int		tek_tirnak;
 	int		cift_tirnak;
@@ -26,40 +26,40 @@ void	ft_echo(char **cmd)
 	flag = 1;
 	i = 1;
 
-	if(ft_strncmp(cmd[1], "-n", 2) == 0)
+	if(ft_strncmp(data->arg[1], "-n", 2) == 0)
 		i++;
-	while(cmd[i])
+	while(data->arg[i])
 	{	
 		j = 0;
-		while (cmd[i][j])
+		while (data->arg[i][j])
 		{
-			if(cmd[i][j] == '"' && !tek_tirnak && flag)
+			if(data->arg[i][j] == '"' && !tek_tirnak && flag)
 			{
 				cift_tirnak = 1;
 				flag = 0;
 				j++;
 			}
-			else if(cmd[i][j] == '\'' && !cift_tirnak && flag) 
+			else if(data->arg[i][j] == '\'' && !cift_tirnak && flag) 
 			{
 				tek_tirnak = 1;
 				flag = 0;
 				j++;
 			}
-			else if(cmd[i][j] == '"' && cift_tirnak)
+			else if(data->arg[i][j] == '"' && cift_tirnak)
 			{
 				cift_tirnak = 0;
 				flag = 1;
 				j++;
 			}
-			else if(cmd[i][j] == '\'' && tek_tirnak)
+			else if(data->arg[i][j] == '\'' && tek_tirnak)
 			{
 				tek_tirnak = 0;
 				flag = 1;
 				j++;
 			}
 			else
-			{	
-				write(1, &cmd[i][j], 1);
+			{
+				write(1, &data->arg[i][j], 1);
 				j++;
 			}
 		}

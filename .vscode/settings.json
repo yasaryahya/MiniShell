@@ -17,7 +17,8 @@
 		"stdbool.h": "c",
 		"limits.h": "c",
 		"stdlib.h": "c",
-		"stat.h": "c"
+		"stat.h": "c",
+		"sstream": "c"
 	},
 	"C_Cpp.errorSquiggles": "enabled",
 	"debug.autoExpandLazyVariables": true

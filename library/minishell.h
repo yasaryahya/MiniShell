@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:25:45 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/18 05:57:26 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/20 01:31:08 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 typedef	struct s_lexer
 {
-	char	*full_str; // parçalanmış şekilde argümanlar
-	char	*token_str;
+	char	*full_str;
 	int		index;
 	int		cift_tirnak;
 	int		tek_tirnak;
@@ -37,7 +36,7 @@ typedef	struct s_lexer
 
 typedef struct s_env
 {
-	char			*data;
+	//char			*data;
 	char			*first;
 	char			*second;
 	struct s_env	*next;
@@ -45,41 +44,38 @@ typedef struct s_env
 
 typedef struct s_data 
 {
-// gelen arg " " ile ayrilmis hali
 	char	**arg;
-// gelen tum arg bir alir.
 	char	*b_arg;
-// gelen tum arg'in uzunlugu.
 	int		arg_len;
 	int		exit_signal;
-// gelen arg sayisi
 	int		arg_count;
 	char	*pathname;
 	char	*cmd_path;
-// env satir sayisi.
 	int		env_count;
-// tum env'nin oldugu yer.
 	char	**envrt;
 	int		pipe_count;
 	char	**cmd;
-// env'lerin list olarak tutuldugu struct.
+	char	**pipe_cmd;
+
 	t_env	*env;
 	t_lexer	*lexer;
-
 }	t_data;
 
 t_data		*data;
 
 //   main
-int			main(int argc, char **argv, char **envarment);
 void		minishell(t_data *data);
 
 void		ft_sig(int sig);
-void	 	parse(t_data *data, char **cmd);
+void	 	parse(t_data *data);
 
 //	free--error
+void		free_function(t_data *data, int flag);
+void		ft_free_malloc(char **tab);
+void		free_env_list(t_env *env);
+
 void		ft_error(char *str, int flag);
-void		free_env(t_env **env);
+void		free_env(t_env *env);
 
 //void		ENVironment();
 void		ilkarguman(char **cmd);
@@ -102,12 +98,12 @@ int			env_struct(t_data *base, char *new_arg);
 char		**env_split(char *src);
 char		*find_chr_ret_str(char *str, char c, int status);
 //  FUNCTION
-void		ft_echo(char **cmd);
+void		ft_echo(t_data *data);
 void		ft_pwd(void);
-void		bin_ls(void);
+void		bin_ls(t_data *data);
 
 void		ft_exit(t_data *data);
-void		cd(t_data *data, char **cmd);
+void		cd(t_data *data);
 
 //	 EXPORT
 void		export(t_data *data);
@@ -118,8 +114,8 @@ int			check_arg(t_data *data);
 char		*nail_control_and_trim(char *str);
 
 
-void		command(t_data *data, char **command);
-char		*find_path(char *cmdline, t_data *data);
+void		command(t_data *data);
+char		*find_path(t_data *data);
 
 //void   		clearEnvList(t_data *data);
 void		ft_free_str(char **str);
@@ -136,15 +132,17 @@ void		dollar_token(t_data *data);
 
 //	 UTİLS
 void    	space_one(t_data *data);
+int			ft_strcmp(char *s1, char *s2);
 
 // 	  PİPE
 void		ft_pipe(t_data *data);
 int			comment(t_data *data, char **cmd, int input, int output, int x);
 void		redirection_to_input(char **cmd, int fd, int i);
-int			operation(char *x);
-char		**re_create_cmd(char **ex_cmd, int len, int i, int j);
+void		redirection_to_output(char **cmd, int i, int fd, int x);
+int			operation(char **cmd, int i);
+char		**re_create_cmd(char **cmd, int len, int i, int j);
 char		*create_path(char *cmd, char **cmd_paths);
 void		ft_free_malloc(char **tab);
-void		redirection_to_output(char **cmd, int i, int fd, int x);
-
+void 		ft_pipe_deneme(t_data *data);
+void 		execute_command_with_pipe(char **command, int *input_fd, int *output_fd);
 #endif

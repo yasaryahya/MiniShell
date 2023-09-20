@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 01:32:46 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/18 05:03:17 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/19 23:19:46 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_arg_envrt(t_data *data)
 		j = i+1;
     	while (data->arg[j] != NULL)
 		{
-      		if (ft_strncmp(data->arg[j], data->arg[i], ft_strlen(data->arg[i])) == 0)
+      		if (ft_strcmp(data->arg[j], data->arg[i]) == 0)
 			{
         		data->arg[i] = NULL;
 				if (data->arg[j])

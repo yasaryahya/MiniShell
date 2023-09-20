@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/18 06:45:56 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/20 01:30:53 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_env	*esitsayisi(t_env *new_node, int count, int len, char *str)
 			new_node->first = ft_strdup(str);
 			new_node->second = ft_strdup("");
 		}
-		new_node->data = ft_strdup(str);
+		//new_node->data = ft_strdup(str);
 		new_node->next = NULL;
 	}
 	return (new_node);
@@ -101,13 +101,13 @@ void	append_env_node(char *str, t_env **env_list)
 int	init_env(t_data *data)
 {
 	int		i;
-	t_env	*env_list;
+	//t_env	*env_list;
 
 	i = -1;
-	env_list = NULL;
+	//env_list = NULL;
 	while (data->envrt[++i] != NULL)
-		append_env_node(data->envrt[i], &env_list);
-	data->env = env_list;
-//free_env(&env_list);	
+		append_env_node(data->envrt[i], &data->env);
+	//data->env = env_list;
+	//free_env(env_list);	
 	return (1);
 }

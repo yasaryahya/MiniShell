@@ -5,83 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 20:21:42 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/15 02:04:01 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/19 02:13:37 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/19 22:57:22 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <string.h>
-# include <stdbool.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+#include "library/minishell.h"
 /*
-int pipe_command(char** arg)
+void ft_pipe(t_data *data)
 {
-    // Komutlar bir dizi olarak verilir.
-    if (!arg)
-        return -1;
-    // Her komut için bir işlem oluşturulur.
-    pid_t pids[count(arg)];
-    int fds[2][count(arg) - 1];
-    for (int i = 0; i < count(arg); i++)
-	{
-        if (pipe(fds[i % 2]) < 0)
-            return -1;
-        pids[i] = fork();
-        if (pids[i] < 0)
-            return -1;
-        if (pids[i] == 0)
-		{
-            // Arka planda çalışan işlem
-            if (i > 0)
-			{
-                dup2(fds[(i - 1) % 2][0], STDIN_FILENO);
-                close(fds[(i - 1) % 2][0]);
-            }
-            if (i < count(arg) - 1)
-			{
-                dup2(fds[i % 2][1], STDOUT_FILENO);
-                close(fds[i % 2][1]);
-            }
-            execvp(arg[i], arg + i);
-            exit(1);
-        }
-    }
+    int i;
+    int fd;
+	char **cmdd;
 
-    // Tüm işlemler tamamlanana kadar bekleyin.
-    for (int i = 0; i < count(arg); i++)
-	{
-        waitpid(pids[i], NULL, 0);
+    i = -1;
+    fd = 0;
+    data->cmd = ft_split(data->lexer->full_str, '|');
+    while (data->cmd[++i])
+    {
+    	ft_free_malloc(data->arg);
+    	data->arg = ft_split(data->cmd[i], ' ');
+		cmdd = ft_split(data->cmd[i], ' ');
+        if (!i)
+            fd = comment(data, cmdd, 0, 1, 1);
+        else if (i == data->pipe_count)
+            comment(data, cmdd, fd, 1, 0);
+        else
+            fd = comment(data, cmdd, fd, 1, 1);
     }
-
-    // Hataları işleyin.
-    for (int i = 0; i < count(arg); i++)
-	{
-        int status;
-        waitpid(pids[i], &status, 0);
-        if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-            return -1;
-    }
-    return 0;
+	ft_free_malloc(data->cmd);
+    data->pipe_count = 0;
 }
 
-
-int main()
-{
-    char* arg[] = {"ls -al", "> output.txt", "wc -l output.txt"};
-
-    int ret = pipe_command(arg);
-    if (ret < 0)
-	{
-        perror("pipe_command");
-        return 1;
-    }
-    return 0;
-}
 */
+//  
+//  data->lexer->full_str:  ls -la | grep *.c | wc -l       pipe_count: 3 
+//              data->cmd:  {"ls -la", "grep *.c", "wc -l"}
+//                   cmdd:  "ls", "-la"

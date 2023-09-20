@@ -10,19 +10,21 @@ void ft_free_str(char **str)
     int i = 0;
 
     if (!str)
-        return;
-    
+        return ;
     while (str[i])
     {
         free(str[i]);
-        str[i] = NULL; // Pointer'ı NULL olarak ayarlayın
+        str[i] = NULL;
         i++;
     }
-    
     free(str);
     str = NULL;
 }
 
+/**
+ * @brief Gönderdiğimiz PATH stringini data->envr içinde arıyor,
+ * bulduğu indexte path=xxxx path'den sonrasını döndürüyor. Yoksa null.
+ */
 char *find_value(char *key, t_data *data)
 {
     int i = 0;
@@ -30,17 +32,17 @@ char *find_value(char *key, t_data *data)
     while (data->envrt[i])
     {
         if (ft_strncmp(data->envrt[i], key, ft_strlen(key)) == 0)
-        {
-            // "PATH=" ifadesini atlayarak PATH değerini döndürüyoruz
             return (data->envrt[i] + ft_strlen(key));
-        }
         i++;
     }
-    
-    return (NULL); // Belirtilen anahtarı bulamazsak NULL döndürüyoruz
+    return (NULL);
 }
 
-char *find_path(char *cmdline, t_data *data)
+/**
+ * @brief Envrt değişkenleri içerisinde PATH arıyor ve sonrası döndürerek
+ * split ile ":" ayırıyoruz ve / ekleyerek komutların yolunu buluyoruz.
+ */
+char *find_path(t_data *data)
 {
     int i = 0;
     char *temp;
@@ -54,67 +56,54 @@ char *find_path(char *cmdline, t_data *data)
     while (paths[i])
     {
         char *path_with_slash = ft_strjoin(paths[i], "/");
-        new_path = ft_strjoin(path_with_slash, cmdline);
+        new_path = ft_strjoin(path_with_slash, data->arg[0]);
         
         free(path_with_slash);
-
         if (stat(new_path, &a) == 0)
         {
             ft_free_str(paths);
             return (new_path);
         }
-        
         free(new_path);
         i++;
     }
-    
     ft_free_str(paths);
     return (NULL);
 }
 
-void command(t_data *data, char **command)
+void command(t_data *data)
 {
-    char *cmd = ft_strdup(command[0]);
     
-    if (cmd == NULL)
+    if (data->arg[0] == NULL)
     {
         ft_error("Bellek ayrılma hatası", 0);
         return;
     }
 
-    char *komut = find_path(cmd, data);
+    char *komut = find_path(data);
 
     if (komut == NULL || strcmp(komut, "") == 0)
     {
         printf("Komut Bulunamadı.\n");
-        free(cmd);
         return;
     }
-
-    // Yeni bir süreç oluştur
     pid_t child_pid = fork();
-
     if (child_pid == -1)
     {
         perror("fork");
-        free(cmd);
         return;
     }
-
     if (child_pid == 0)
-    { // Çocuk süreç
-        if (execve(komut, command, NULL) == -1)
+    {
+        if (execve(komut, data->arg, NULL) == -1)
         {
             ft_error("execve hatası", 0);
-            free(cmd);
             exit(1);
         }
     }
     else
-    { // Ebeveyn süreç
+    {
         int status;
         waitpid(child_pid, &status, 0);
-        free(cmd); // Bellek serbest bırakılıyor
     }
-    printf("\n");
 }
