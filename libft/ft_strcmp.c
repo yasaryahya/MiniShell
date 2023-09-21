@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 15:55:15 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 07:12:22 by yyasar           ###   ########.fr       */
+/*   Created: 2022/10/08 16:08:27 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/20 07:15:18 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
-	return (i);
+	return (s1[i] - s2[i]);
 }
-/*
-int	main(void)
-{
-	char	a[] = "yahya";
-	printf("%zu\n", ft_strlen(a));
-}
-*/

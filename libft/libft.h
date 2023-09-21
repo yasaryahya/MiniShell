@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 08:53:23 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/02 20:50:40 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/21 07:12:41 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-size_t	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 void	*ft_bzero(void *s, size_t n);
@@ -71,4 +71,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 char	**ft_malloc_error(char **tab);
+char	*ft_strjoin_char(char *s, char c);
+int		ft_strcmp(char *s1, char *s2);
+char	*ft_strcat(char *dest, const char *src);
+
 #endif

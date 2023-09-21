@@ -1,0 +1,125 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
+/*   Updated: 2023/09/21 11:04:20 by yyasar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include "libft/libft.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <string.h>
+# include <stdbool.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+
+typedef struct s_lexer
+{
+	char	*full_str;
+	int		index;
+	int		cift_tirnak;
+	int		tek_tirnak;
+}		t_lexer;
+
+typedef struct s_env
+{
+	char			*first;
+	char			*second;
+	struct s_env	*next;
+}		t_env;
+
+typedef struct s_data
+{
+	char	**arg;
+	char	*b_arg;
+	int		i;
+	int		has_pipe;
+	int		error_no;
+	int		pipe_count;
+	int		cmd_count;
+	int		env_count;
+	char	**envrt;
+	char	*cmd_path;
+	t_env	*env;
+	t_lexer	*lexer;
+}	t_data;
+
+
+//		MAİN
+void				ft_sig(int sig);
+int					init_env(t_data *data);
+void				ft_error(char *str, int flag, t_data *data);
+void				free_env_list(t_env *env);
+
+//		ENV
+void				add_env_node(char *str, t_data *data);
+t_env				*create_env(char*str);
+t_env				*node_add(t_env *new_node, int count, int len, char *str);
+void				env_print(t_data *data, int flag);
+void				control_and_printf(t_data *data);
+int					direct_printf(t_env *tmp);
+
+//  	LEXER
+void				lexer(t_data *data);
+void				lexer_token_quote(t_data *data);
+void				lexer_token_quote_2(t_data *data);
+void				dollar_token(t_data *data);
+void				lexer_token_output(t_data *data);
+void				lexer_token_input(t_data *data);
+void				lexer_token_pipe(t_data *data);
+
+//		EXPORT
+void				export(t_data *data, char **cmd);
+void    			add_export(t_data *data, int j, char **cmd);
+char				*nail_control_and_trim(char *str, t_data *data);
+int					ft_check_envrt(t_data *data, char *cmd);
+char				*add_quotes(const char *str, int start);
+int					check_arg_envrt(t_data *data, char **cmd, int i, int j);
+int					check_arg(t_data *data, char **cmd);
+void				delete_env(t_data *data, const char *delete_env, int i);
+
+//		PİPEX
+void				pipex(t_data *data, int i, int fd);
+int					comment(t_data *data, char **cmd, int input, int output);
+int					create_child_process(char **cmd, t_data *data, int input, int output);
+int					create_pipe(int *pipefd);
+char				**ft_free_malloc(char **tab);
+char				*add_character_to_index(char *str, char c, int i);
+char				*create_path(char *cmd, char **cmd_paths);
+char				**re_create_cmd(char **ex_cmd, int len, int i, int j);
+int					operation(char *x);
+char				*re_create_input(char *input);
+
+//		PARSE
+void				parse(char **command, t_data *data);
+void				parsetwo(char **command, t_data *data);
+void				redirection_to_input(char **cmd, int fd, int i);
+void				redirection_to_output(char **cmd, int i, int fd, int x);
+
+
+// 		FREE
+void				free_data(t_data *data, char *command);
+void				free_lexer(t_data *data);
+
+//		FUNCTİON
+void				bin_ls(char **cmd, t_data *data);
+void 				ft_pwd(t_data *data);
+void				ft_echo(char **cmd, int i);
+void				find_env(t_data *data, char *str);
+void				cd(char **command, t_data *data);
+void				cd_two(char *home, char **command, t_data *data);
+void				cd_three(char *home, char **command, char *str, t_data *data);
+void				command_function(t_data *data, char **command);
+#endif

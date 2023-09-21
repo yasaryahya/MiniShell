@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 15:55:15 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 07:12:22 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/20 19:31:35 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/21 06:44:58 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
+#include <stdlib.h>
 
-int	ft_strlen(const char *s)
+char	**ft_free_malloc(char **tab)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (tab[i])
+	{
+		free(tab[i]);
 		i++;
-	return (i);
+	}
+	free(tab);
+	return (NULL);
 }
-/*
-int	main(void)
+
+void	free_data(t_data *data, char *command)
 {
-	char	a[] = "yahya";
-	printf("%zu\n", ft_strlen(a));
+	if (data->lexer->full_str)
+		free(data->lexer->full_str);
+	free(data->lexer);
+	free(data->b_arg);
+	ft_free_malloc(data->arg);
+	free(command);
 }
-*/

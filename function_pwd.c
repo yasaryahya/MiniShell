@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   function_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 15:55:15 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 07:12:22 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/05 16:01:39 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/21 06:30:56 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strlen(const char *s)
+void    ft_pwd(t_data *data)
 {
-	int	i;
+    char cwd[1024];
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+        printf("%s\n", cwd);
+    else
+        ft_error("function/pwd: pwd hatası", 0, data);
+    return ;
 }
-/*
-int	main(void)
-{
-	char	a[] = "yahya";
-	printf("%zu\n", ft_strlen(a));
-}
-*/

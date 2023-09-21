@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 15:55:15 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 07:12:22 by yyasar           ###   ########.fr       */
+/*   Created: 2022/10/09 10:32:19 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/20 07:17:06 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+char	*ft_strcat(char *dest, const char *src)
 {
-	int	i;
+	size_t	dest_len;
+	size_t	i;
 
+	dest_len = 0;
 	i = 0;
-	while (s[i])
+	while (dest[dest_len] != '\0')
+		dest_len++;
+	while (src[i] != '\0')
+	{
+		dest[dest_len + i] = src[i];
 		i++;
-	return (i);
+	}
+	dest[dest_len + i] = '\0';
+	return (dest);
 }
-/*
-int	main(void)
-{
-	char	a[] = "yahya";
-	printf("%zu\n", ft_strlen(a));
-}
-*/

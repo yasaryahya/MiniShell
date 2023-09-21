@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 15:55:15 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 07:12:22 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
+/*   Updated: 2023/09/21 06:26:12 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-int	ft_strlen(const char *s)
+void	ft_error(char *str, int flag, t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (flag == 1)
+	{
+		printf("%s", str);
+		data->error_no = 1;
+		exit(1);
+	}
+	else if (flag == 2)
+	{
+		printf("%s", str);
+		data->error_no = 1;
+	}
+	else if (flag == 127)
+	{
+		printf("%s", str);
+		data->error_no = 127;
+	}
+	return ;
 }
-/*
-int	main(void)
-{
-	char	a[] = "yahya";
-	printf("%zu\n", ft_strlen(a));
-}
-*/

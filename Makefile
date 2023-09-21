@@ -1,26 +1,18 @@
-# Proje adı
 NAME = minishell
 
-# Derleyici
 CC = gcc
 
-# Derleme seçenekleri
-CFLAGS = -Wall -Wextra -Werror -I$(RL_INC) -L$(RL_LIB) -lreadline
+CFLAGS = -Wall -Wextra -Werror -I$(RL_INC) -L$(RL_LIB) -lreadline -g -ggdb
 
-# Temizleme komutu
 RM = rm -rf
 
-# Kaynak dosyaları ve dizin yapısı
-SRCS = $(wildcard *.c function/*.c library/*.c main/*.c Lexer/*.c token/*.c)
+SRCS = $(wildcard *.c function/*.c main/*.c lexer/*.c env/*.c)
 
-# libft kütüphanesi
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
-# Kullanıcı adı ve işletim sistemi belirleme
 USER := $(shell whoami)
 
-# readline kütüphanesi yolları
 RL_INC = /goinfre/$(USER)/brew/Cellar/readline/8.2.1/include
 RL_LIB = /goinfre/$(USER)/brew/Cellar/readline/8.2.1/lib
 
