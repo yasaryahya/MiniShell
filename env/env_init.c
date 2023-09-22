@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/21 10:40:14 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 06:43:37 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,14 @@
  * eşittirden sonrasıda başına ve sonuna 
  * " işareti koyarak t_env->second'a atıyoruz.
 */
-t_env	*node_add(t_env *new_node, int count, int len, char *str)
+t_env	*node_add(t_env *new_node, int *count, int *len, char *str)
 {
-	char	*s;
-
 	if (new_node)
 	{
-		if (count >= 1)
+		if (*count >= 1)
 		{
-			s = ft_strjoin("=\"", (ft_strchr(str, 61) + 1));
-			new_node->first = ft_substr(str, 0, len);
-			new_node->second = ft_strjoin(s, "\"");
-			free(s);
+			new_node->first = ft_substr(str, 0, *len);
+			new_node->second = ft_strdup(ft_strchr(str, 61) + 1);
 		}
 		else
 		{
@@ -45,26 +41,30 @@ t_env	*node_add(t_env *new_node, int count, int len, char *str)
  * @brief gelen envermant değişken stringini kontrol ediyoruz.
  * eşittir varmı yokmu, varsa kaç tane var.
  */
-t_env	*create_env(char*str)
+t_env *create_env(char *str)
 {
-	int		len;
-	int		count;
-	t_env	*new_node;
+    int len = 0;
+    int count = 0;
+    t_env *new_node;
 
-	len = 0;
-	count = 0;
-	new_node = (t_env *)malloc(sizeof(t_env));
-	while (str[len])
-	{
-		if (str[len] == '=')
-		{
-			count = 1;
-			break ;
-		}	
-		len++;
-	}
-	return (node_add(new_node, count, len, str));
+    len = 0;
+    count = 0;
+    new_node = (t_env *)malloc(sizeof(t_env));
+    if (!new_node)
+		return NULL;
+    while (str[len])
+    {
+        if (str[len] == '=')
+        {
+            count = 1;
+            break;
+        }
+        len++;
+    }
+    new_node = node_add(new_node, &count, &len, str);
+    return (new_node);
 }
+
 
 /**
  * @brief Envrt değişkenlerini List yapısına bağladığımız yer,
@@ -80,7 +80,7 @@ void	add_env_node(char *str, t_data *data)
 	new_node->next = NULL;
 	if (!new_node)
 		ft_error("env_init/ malloc error", 1, data);
-	if (!(data->env))
+	if (data->env == NULL)
 		data->env = new_node;
 	else
 	{

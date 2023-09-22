@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/21 11:04:20 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 06:35:19 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void				free_env_list(t_env *env);
 //		ENV
 void				add_env_node(char *str, t_data *data);
 t_env				*create_env(char*str);
-t_env				*node_add(t_env *new_node, int count, int len, char *str);
+t_env				*node_add(t_env *new_node, int *count, int *len, char *str);
 void				env_print(t_data *data, int flag);
 void				control_and_printf(t_data *data);
 int					direct_printf(t_env *tmp);
@@ -88,7 +88,7 @@ int					ft_check_envrt(t_data *data, char *cmd);
 char				*add_quotes(const char *str, int start);
 int					check_arg_envrt(t_data *data, char **cmd, int i, int j);
 int					check_arg(t_data *data, char **cmd);
-void				delete_env(t_data *data, const char *delete_env, int i);
+void				delete_env(t_data *data, char *delete_env, int i);
 
 //		PİPEX
 void				pipex(t_data *data, int i, int fd);
@@ -104,17 +104,18 @@ char				*re_create_input(char *input);
 
 //		PARSE
 void				parse(char **command, t_data *data);
-void				parsetwo(char **command, t_data *data);
+void				parse_two(char **command, t_data *data);
+void				parse_three(char **command, t_data *data, char *new_cmd);
 void				redirection_to_input(char **cmd, int fd, int i);
 void				redirection_to_output(char **cmd, int i, int fd, int x);
-
 
 // 		FREE
 void				free_data(t_data *data, char *command);
 void				free_lexer(t_data *data);
 
 //		FUNCTİON
-void				bin_ls(char **cmd, t_data *data);
+void				slash(char **cmd, t_data *data);
+void				ft_exit(t_data *data);
 void 				ft_pwd(t_data *data);
 void				ft_echo(char **cmd, int i);
 void				find_env(t_data *data, char *str);
@@ -122,4 +123,8 @@ void				cd(char **command, t_data *data);
 void				cd_two(char *home, char **command, t_data *data);
 void				cd_three(char *home, char **command, char *str, t_data *data);
 void				command_function(t_data *data, char **command);
+char 				*to_lowercase(char *str);
+char				*find_and_clear(char *str, int search1, int search2);
+void				unset(t_data *data, char **cmd);
+
 #endif

@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function_bin_ls.c                                  :+:      :+:    :+:   */
+/*   function_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 18:21:40 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 03:36:01 by yyasar           ###   ########.fr       */
+/*   Created: 2023/09/21 21:46:41 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/21 21:51:54 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
-void	slash(char **cmd, t_data *data)
+void	ft_exit(t_data *data)
 {
-	pid_t	pid;
-	int iz = 0;
-
-	pid = fork();
-	if (pid < 0)
-		ft_error("function/bin_ls: fork hatası", 1 , data);
-	else if (pid == 0)
-	{
-		iz = execve(cmd[0], cmd, NULL);
-		ft_error("function/bin_ls: execve hatası\n", 1, data);
-	}
+	if (data->cmd_count == 1)
+		exit(0);
 	else
-		wait(NULL);
+		ft_error("exit: too many arguments\n", 2, data);
 	return ;
 }

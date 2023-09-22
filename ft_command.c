@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_command.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/21 23:53:32 by yyasar            #+#    #+#             */
+/*   Updated: 2023/09/22 00:16:53 by yyasar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <sys/stat.h>
 #include <dirent.h>
@@ -26,18 +38,19 @@ void	ft_free_str(char **str)
  * @brief Gönderdiğimiz PATH stringini data->envr içinde arıyor,
  * bulduğu indexte path=xxxx path'den sonrasını döndürüyor. Yoksa null.
  */
-char	*find_value(char *key, t_data *data)
-{
-	int	i;
 
-	i = 0;
-	while (data->envrt[i])
-	{
-		if (ft_strncmp(data->envrt[i], key, ft_strlen(key)) == 0)
-			return (data->envrt[i] + ft_strlen(key));
-		i++;
-	}
-	return (NULL);
+char *find_value(char *key, t_data *data)
+{
+    t_env *tmp = data->env;
+
+    while (tmp)
+    {
+        if (ft_strcmp(tmp->first, key) == 0)
+            return (tmp->second);
+        tmp = tmp->next;
+    }
+
+    return (NULL);
 }
 
 /**
@@ -54,6 +67,8 @@ char	*find_path(t_data *data, char **command, int i)
 	struct stat	a;
 
 	temp = find_value("PATH", data);
+	if (temp == NULL)
+		return (NULL);
 	paths = ft_split(temp, ':');
 	while (paths[i])
 	{
@@ -104,7 +119,6 @@ void	command_function(t_data *data, char **command)
 		return ;
 	}
 	komut = find_path(data, command, 0);
-	printf("%s\n%s\n", command[0], komut);
 	if (!komut || !komut[0])
 	{
 		printf("Komut Bulunamadı.\n");

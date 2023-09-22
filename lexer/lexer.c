@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 01:00:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/21 10:06:03 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 06:48:31 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	lexer(t_data *data)
 {
 	data->i = 0;
 	data->lexer->full_str = strdup("");
-	while (data->b_arg[data->i])
+	while (data->b_arg[data->i] != '/0')
 	{
 		if (data->b_arg[data->i] == '\\' || data->b_arg[data->i] == ';')
 			data->lexer->full_str = ft_strjoin_char(data->lexer->full_str, ' ');

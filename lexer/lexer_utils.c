@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 06:49:02 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/21 09:50:16 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 04:03:57 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,22 @@
 void	find_env(t_data *data, char *str)
 {
 	t_env *tmp = data->env;
-	char  *string = ft_strdup("");
+	char  *string = NULL;
 	
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->first, str) == 0)
 		{
 			string = ft_strjoin(tmp->second, "");
+			string = ft_strtrim(string, "=\"");
 			break ;
 		}
 		tmp = tmp->next;
 	}
-	string = ft_strtrim(string, "=\"");
-	data->lexer->full_str = ft_strjoin(data->lexer->full_str, string);
-
-	// Free the memory allocated to string
+	if(string)
+		data->lexer->full_str = ft_strjoin(data->lexer->full_str, string);
+	else 
+		data->lexer->full_str = ft_strjoin(data->lexer->full_str, str);
 	free(string);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/21 06:26:12 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 03:01:56 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ void	ft_error(char *str, int flag, t_data *data)
 	if (flag == 1)
 	{
 		printf("%s", str);
-		data->error_no = 1;
 		exit(1);
 	}
-	else if (flag == 2)
+	else if (flag == 2) // dosya , dizin hatası
 	{
 		printf("%s", str);
 		data->error_no = 1;
 	}
-	else if (flag == 127)
+	else if (flag == 127) //sıkıntılı çalışma, komut bulunamadı
 	{
 		printf("%s", str);
 		data->error_no = 127;

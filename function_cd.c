@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 05:05:07 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 05:44:47 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 05:12:32 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	cd_three(char *home, char **command, char *str, t_data *data)
 			ft_error("function/cd: cd hatası", 2, data);
 			return ;
 		}
-		free(str);
-	}else
+	}
+	else
 	{
 		if (chdir(command[1]) != 0)
 		{
@@ -54,6 +54,7 @@ void	cd_three(char *home, char **command, char *str, t_data *data)
 			return ;
 		}
 	}
+	free(str);
 }
 
 void	cd(char **command, t_data *data)

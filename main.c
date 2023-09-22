@@ -6,11 +6,21 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/21 10:41:10 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 00:37:40 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	set_args(t_data *data)
+{
+	if(data)
+	{
+		data->arg = NULL;
+		data->b_arg = NULL;
+		data->cmd_path = NULL;
+	}
+}
 
 void	init_count(t_data *data)
 {
@@ -60,6 +70,7 @@ void	minishell(t_data *data)
 			parse(data->arg, data);
 		}
 		free_data(data, command);
+		//free(lexer);
 	}
 }
 
@@ -69,7 +80,9 @@ int	main(int argc, char **argv, char **envarment)
 
 	(void)argc;
 	(void)argv;
+	set_args(&data);
 	data.env = NULL;
+	data.lexer = NULL;
 	data.envrt = envarment;
 	minishell(&data);
 	return (1);

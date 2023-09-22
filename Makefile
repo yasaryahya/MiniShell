@@ -24,7 +24,7 @@ $(NAME): $(SRCS) libft
 
 v:
 	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFT)
-	@valgrind ./$(NAME)
+	/*@valgrind ./$(NAME)*/
 
 libft:
 	@make -C $(LIBFT_PATH) all

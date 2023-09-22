@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:46:11 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 09:40:13 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 04:53:13 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,34 @@ char	*create_path(char *cmd, char **cmd_paths)
 	return (NULL);
 }
 
-char	**re_create_cmd(char **ex_cmd, int len, int i, int j)
+char **re_create_cmd(char **ex_cmd, int len, int i, int j)
 {
-	char	**cmd;
+    char **cmd;
 
-	while (ex_cmd[++i])
-	{
-		if (!ft_strncmp(ex_cmd[i], "<", 2) || !ft_strncmp(ex_cmd[i], ">", 2)
-			|| !ft_strncmp(ex_cmd[i], "<<", 3)
-			|| !ft_strncmp(ex_cmd[i], ">>", 3))
-			i++;
-		else
-			len++;
-	}
-	cmd = malloc(sizeof(char *) * (len + 1));
-	i = -1;
-	while (ex_cmd[++i])
-	{
-		if (!ft_strncmp(ex_cmd[i], "<", 2) || !ft_strncmp(ex_cmd[i], ">", 2)
-			|| !ft_strncmp(ex_cmd[i], "<<", 3)
-			|| !ft_strncmp(ex_cmd[i], ">>", 3))
-			i++;
-		else
-			cmd[j++] = ft_strdup(ex_cmd[i]);
-	}
-	free(cmd[j]); // Added this line to fix the error.
-	return (cmd[j] = NULL, ft_free_malloc(ex_cmd), cmd);
+    i = -1;
+    while (ex_cmd[++i])
+    {
+        if (!ft_strncmp(ex_cmd[i], "<", 2) || !ft_strncmp(ex_cmd[i], ">", 2)
+            || !ft_strncmp(ex_cmd[i], "<<", 3)
+            || !ft_strncmp(ex_cmd[i], ">>", 3))
+            i++;
+        else
+            len++;
+    }
+    cmd = malloc(sizeof(char *) * (len + 1));
+    i = -1;
+    j = 0;
+    while (ex_cmd[++i])
+    {
+        if (!ft_strncmp(ex_cmd[i], "<", 2) || !ft_strncmp(ex_cmd[i], ">", 2)
+            || !ft_strncmp(ex_cmd[i], "<<", 3)
+            || !ft_strncmp(ex_cmd[i], ">>", 3))
+            i++;
+        else
+            cmd[j++] = ft_strdup(ex_cmd[i]);
+    }
+    cmd[j] = NULL; // cmd'yi sonlandır
+    return (ft_free_malloc(ex_cmd), cmd);
 }
+
 

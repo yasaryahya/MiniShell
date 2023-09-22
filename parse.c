@@ -6,51 +6,58 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 07:33:37 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/21 08:52:24 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 03:40:50 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parsetwo(char **command, t_data *data)
+void	parse_three(char **command, t_data *data, char *new_cmd)
 {
+
+	if (ft_strcmp(new_cmd, "unset") == 0)
+		unset(data, command);
+	else if (ft_strcmp(new_cmd, "clear") == 0)
+			printf("\033[H\033[J");
+	else if (ft_strcmp(new_cmd, "exit") == 0)
+		ft_exit(data);
+	else if ((ft_strncmp(&command[0][0], "/" , 1) == 0) || ft_strncmp(&command[0][0], "." , 1) == 0)
+		slash(command, data);
+	else
+		command_function(data, command);
+}
+
+void	parse_two(char **command, t_data *data)
+{
+	char *new_cmd = NULL;
+	new_cmd = to_lowercase(command[0]);
+
 	data->cmd_count = 0;
 	while (command[data->cmd_count])
 		data->cmd_count++;
-	//redirection_to_output(command, 0, 0, 0);
-	if (ft_strcmp(command[0], "echo") == 0)
-		ft_echo(command, 1);
-	if (ft_strcmp(command[0], "pwd") == 0)
-		ft_pwd(data);
-	else if (ft_strcmp(command[0], "/bin/ls") == 0)
-		bin_ls(command, data);
+	if (ft_strcmp(new_cmd, "echo") == 0)
+			ft_echo(command, 1);
+	else if (ft_strcmp(new_cmd, "pwd") == 0)
+			ft_pwd(data);
 	else if (ft_strcmp(command[0], "cd") == 0)
 		cd(command, data);
-	if (ft_strcmp(command[0], "env") == 0)
-		env_print(data, 0);
+	else if (ft_strcmp(new_cmd, "env") == 0)
+			env_print(data, 0);
 	else if (ft_strcmp(command[0], "export") == 0)
 		export(data, command);
-	//else if (ft_strcmp(command[0], "ls") == 0)
-	//	printf("ls:girdyahyayasar");
-	//else if (ft_strcmp(command[0], "wc") == 0)
-	//	printf("wc:girdi");
-	//else if (ft_strcmp(command[0], "unset") == 0)
-		//unset(command);
-	else if (ft_strcmp(command[0], "clear") == 0)
-		printf("\033[H\033[J");
-	//else if (ft_strcmp(command[0], "exit") == 0)
-		//ft_exit(command);
 	else
-		command_function(data, command);
+		parse_three(command, data, new_cmd);
+	free(new_cmd);
 }
 
 void	parse(char **command, t_data *data)
 {
 	if (!command || !command[0])
 	{
-		printf("Command is empty or invalid.\n");
+		ft_error("Command is empty or invalid.\n", 127, data);
 		return ;
 	}
-	else if (command)
-		parsetwo(command, data);
+	else
+		parse_two(command, data);
+	return ;
 }
