@@ -6,39 +6,66 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:39:21 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 06:44:25 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 07:12:13 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char *nail_control_and_trim(char *str, t_data *data)
-{
-    char *new;
 
-    if (str[0] == '"' || str[0] == '\'')
-    {
-        new = ft_strtrim(str, "\"'");
-        if (!new)
-            ft_error("export/ malloc error", 1, data);
-    }
-    else
-    {
-        new = ft_strdup(str);
-        if (!new)
-            ft_error("export/ malloc error", 1, data);
-    }
-    free(str);
-    return (new);
+int	check_arg(t_data *data, char **cmd)
+{
+	int 	i;
+	char	c;
+	char	*clear_str;
+	
+	i = 1;
+	while (data->cmd_count > i)
+	{
+		clear_str = find_and_clear(cmd[i], '"', '\'');
+		c = clear_str[0];
+		if (!((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == '=')))
+		{
+        	printf("bash: export: not an identifier: \'%s\'\n", clear_str);
+			free(clear_str);
+			ft_error("", 127, data);
+			return(0);
+      	}
+		free(clear_str);
+		i++;
+  	}
+	return(1);
 }
-*/
+
+int	check_arg_envrt(t_data *data, char **cmd, int i, int j)
+{
+	if (check_arg(data, cmd) == 0)
+		return (0);
+	while (cmd[i] != NULL)
+	{
+		j = i+1;
+    	while (cmd[j] != NULL)
+		{
+      		if (ft_strcmp(cmd[j], cmd[i]) == 0)
+			{
+        		cmd[i] = NULL;
+				if (cmd[j])
+					cmd[i] = cmd[j];
+				data->cmd_count--;
+				break ;
+      		}
+			j++;
+    	}
+		i++;
+  	}
+	return (1);
+}
+
 void    add_export(t_data *data, int j, char **cmd)
 {
     char *clear_str;
 
 	while (j < data->cmd_count)
 	{
-		//cmd[j] = nail_control_and_trim(cmd[j], data);
 		clear_str = find_and_clear(cmd[j], '"', '\'');
         delete_env(data, clear_str, -1);
 		add_env_node(clear_str, data);

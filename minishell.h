@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/22 06:35:19 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/22 07:22:29 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void				lexer_token_pipe(t_data *data);
 //		EXPORT
 void				export(t_data *data, char **cmd);
 void    			add_export(t_data *data, int j, char **cmd);
-char				*nail_control_and_trim(char *str, t_data *data);
 int					ft_check_envrt(t_data *data, char *cmd);
 char				*add_quotes(const char *str, int start);
 int					check_arg_envrt(t_data *data, char **cmd, int i, int j);
@@ -126,5 +125,6 @@ void				command_function(t_data *data, char **command);
 char 				*to_lowercase(char *str);
 char				*find_and_clear(char *str, int search1, int search2);
 void				unset(t_data *data, char **cmd);
+char 				*find_value(char *key, t_data *data);
 
 #endif
