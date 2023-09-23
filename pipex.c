@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 01:00:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/22 07:23:07 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/23 05:24:25 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	comment(t_data *data, char **cmd, int input, int output)
 			dup2(output, 1);
 		redirection_to_output(cmd, 0, 0, 0);
 		cmd = re_create_cmd(cmd, 0, -1, 0);
-		char *a = find_value("PATH", data);
-		char *path = create_path(cmd[0], ft_split(a, ':'));
-		execve(path, cmd, data->envrt );
+		//char *a = find_value("PATH", data);
+		//char *path = create_path(cmd[0], ft_split(a, ':'));
+		//execve(path, cmd, data->envrt );
+		parse(cmd, data);
 	}
 	if (data->has_pipe)
 		return (close(pipefd[1]), waitpid(pid, 0, 0), pipefd[0]);

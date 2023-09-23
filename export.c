@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:39:21 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 07:12:13 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/23 07:15:33 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_arg(t_data *data, char **cmd)
 		c = clear_str[0];
 		if (!((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c == '=')))
 		{
-        	printf("bash: export: not an identifier: \'%s\'\n", clear_str);
+        	printf("bash: export: \'%s\': not an identifier: \n", clear_str);
 			free(clear_str);
 			ft_error("", 127, data);
 			return(0);
@@ -78,7 +78,6 @@ void export(t_data *data, char **cmd)
 {	
 	if (check_arg_envrt(data, cmd, 0, 0) == 0)
 		return ;
-	printf("cmd_count:%d\n", data->cmd_count);
 	if (data->cmd_count == 1)
 		env_print(data, 1);
 	else

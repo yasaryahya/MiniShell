@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/22 00:37:40 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/23 06:35:37 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	set_args(t_data *data)
 		data->arg = NULL;
 		data->b_arg = NULL;
 		data->cmd_path = NULL;
+		data->flag_dollar = 0;
 	}
 }
 
@@ -52,6 +53,7 @@ void	minishell(t_data *data)
 	char	*command;
 
 	init_env(data);
+	init_arguman(data);
 	while (1)
 	{
 		signal(SIGQUIT, ft_sig);
@@ -70,7 +72,7 @@ void	minishell(t_data *data)
 			parse(data->arg, data);
 		}
 		free_data(data, command);
-		//free(lexer);
+		//_CrtDumpMemoryLeaks();
 	}
 }
 
@@ -82,6 +84,7 @@ int	main(int argc, char **argv, char **envarment)
 	(void)argv;
 	set_args(&data);
 	data.env = NULL;
+	data.arguman = NULL;
 	data.lexer = NULL;
 	data.envrt = envarment;
 	minishell(&data);

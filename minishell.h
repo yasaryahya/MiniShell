@@ -6,12 +6,14 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/22 07:22:29 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/23 07:32:52 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+#define _CRTDBG_MAP_ALLOC
 
 # include "libft/libft.h"
 # include <unistd.h>
@@ -40,20 +42,29 @@ typedef struct s_env
 	struct s_env	*next;
 }		t_env;
 
+typedef struct s_arguman
+{
+	char				*first;
+	char				*second;
+	struct s_arguman	*next;
+}		t_arguman;
+
 typedef struct s_data
 {
-	char	**arg;
-	char	*b_arg;
-	int		i;
-	int		has_pipe;
-	int		error_no;
-	int		pipe_count;
-	int		cmd_count;
-	int		env_count;
-	char	**envrt;
-	char	*cmd_path;
-	t_env	*env;
-	t_lexer	*lexer;
+	char		**arg;
+	char		*b_arg;
+	int			i;
+	int			has_pipe;
+	int			error_no;
+	int			flag_dollar;
+	int			pipe_count;
+	int			cmd_count;
+	int			env_count;
+	char		**envrt;
+	char		*cmd_path;
+	t_env		*env;
+	t_lexer		*lexer;
+	t_arguman	*arguman;
 }	t_data;
 
 
@@ -61,7 +72,6 @@ typedef struct s_data
 void				ft_sig(int sig);
 int					init_env(t_data *data);
 void				ft_error(char *str, int flag, t_data *data);
-void				free_env_list(t_env *env);
 
 //		ENV
 void				add_env_node(char *str, t_data *data);
@@ -70,6 +80,12 @@ t_env				*node_add(t_env *new_node, int *count, int *len, char *str);
 void				env_print(t_data *data, int flag);
 void				control_and_printf(t_data *data);
 int					direct_printf(t_env *tmp);
+//	    ARGUMAN
+int					init_arguman(t_data *data);
+void				add_arg_node(char *str, t_data *data);
+int					ft_arguman_add(char **cmd, t_data *data);
+t_arguman 			*create_arguman(char *str);
+t_arguman			*node_add_arg(t_arguman *new_node, int *count, int *len, char *str);
 
 //  	LEXER
 void				lexer(t_data *data);
@@ -117,7 +133,7 @@ void				slash(char **cmd, t_data *data);
 void				ft_exit(t_data *data);
 void 				ft_pwd(t_data *data);
 void				ft_echo(char **cmd, int i);
-void				find_env(t_data *data, char *str);
+void				find_env_dollar(t_data *data, char *str);
 void				cd(char **command, t_data *data);
 void				cd_two(char *home, char **command, t_data *data);
 void				cd_three(char *home, char **command, char *str, t_data *data);

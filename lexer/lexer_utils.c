@@ -6,15 +6,15 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 06:49:02 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/22 04:03:57 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/23 06:42:52 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	find_env(t_data *data, char *str)
+void	find_env_dollar(t_data *data, char *str)
 {
-	t_env *tmp = data->env;
+	t_arguman *tmp = data->arguman;
 	char  *string = NULL;
 	
 	while (tmp)
@@ -22,7 +22,8 @@ void	find_env(t_data *data, char *str)
 		if (ft_strcmp(tmp->first, str) == 0)
 		{
 			string = ft_strjoin(tmp->second, "");
-			string = ft_strtrim(string, "=\"");
+			//string = ft_strtrim(string, "=\"");
+			data->flag_dollar = 1;
 			break ;
 		}
 		tmp = tmp->next;
@@ -51,7 +52,7 @@ void	dollar_token(t_data *data)
 			str = ft_strjoin_char(str, data->b_arg[data->i]);
 			data->i++;
 		}
-		find_env(data, str);
+		find_env_dollar(data, str);
 		free(str);
 	}
 }

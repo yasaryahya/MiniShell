@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 23:53:32 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 00:16:53 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/09/23 05:47:52 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*find_path(t_data *data, char **command, int i)
 	char		**paths;
 	char		*path_with_slash;
 	char		*new_path;
-	struct stat	a;
 
 	temp = find_value("PATH", data);
 	if (temp == NULL)
@@ -75,7 +74,7 @@ char	*find_path(t_data *data, char **command, int i)
 		path_with_slash = ft_strjoin(paths[i], "/");
 		new_path = ft_strjoin(path_with_slash, command[0]);
 		free(path_with_slash);
-		if (stat(new_path, &a) == 0)
+		if (access(new_path, F_OK) == 0)
 		{
 			ft_free_str(paths);
 			return (new_path);
@@ -122,7 +121,7 @@ void	command_function(t_data *data, char **command)
 	if (!komut || !komut[0])
 	{
 		printf("Komut Bulunamadı.\n");
-		free(komut);
+		//free(komut);
 		return ;
 	}
 	execute_command(komut, command);
