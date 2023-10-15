@@ -36,6 +36,7 @@ void delete_arguman(t_data *data, char *delete, int i)
         prev = current;
         current = current->next;
     }
+	
 }
 
 int	check_arguman(char **cmd, t_data *data)
