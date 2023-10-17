@@ -27,10 +27,9 @@ void	init_count(t_data *data)
 {
 	t_env	*current;
 	int		count;
-	int		i;
 
 	count = 0;
-	i = -1;
+
 	current = data->env;
 	while (current)
 	{

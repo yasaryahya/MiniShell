@@ -17,14 +17,13 @@
 void	slash(char **cmd, t_data *data)
 {
 	pid_t	pid;
-	int iz = 0;
 
 	pid = fork();
 	if (pid < 0)
 		ft_error("function/bin_ls: fork hatası", 1 , data);
 	else if (pid == 0)
 	{
-		iz = execve(cmd[0], cmd, NULL);
+		execve(cmd[0], cmd, NULL);
 		ft_error("function/bin_ls: execve hatası\n", 1, data);
 	}
 	else
