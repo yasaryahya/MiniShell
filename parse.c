@@ -39,15 +39,15 @@ void	parse_two(char **command, t_data *data)
 	while (command[data->cmd_count])
 		data->cmd_count++;
 	if (ft_strchr(command[0], '=') != NULL)
-			ft_arguman_add(command, data);
+		ft_arguman_add(command, data);
 	else if (ft_strcmp(new_cmd, "echo") == 0)
-			ft_echo(command, 1);
+		ft_echo(command, 1);
 	else if (ft_strcmp(new_cmd, "pwd") == 0)
-			ft_pwd(data);
+		ft_pwd(data);
 	else if (ft_strcmp(command[0], "cd") == 0)
 		cd(command, data);
 	else if (ft_strcmp(new_cmd, "env") == 0)
-			env_print(data, 0);
+		env_print(data, 0);
 	else if (ft_strcmp(command[0], "export") == 0)
 		export(data, command);
 	else

@@ -15,31 +15,30 @@
 
 void	lexer(t_data *data)
 {
-	data->i = 0;
-	data->lexer->full_str = strdup("");
-	while (data->b_arg[data->i] != '\0')
+	int	i;
+	char	c;
+	t_lexer	*lexer;
+
+	lexer = data->lexer;
+	i = 0;
+	lexer->full_str = strdup("");
+	while (data->b_arg[i] != '\0')
 	{
-		if(data->b_arg[data->i] == '\0')
-			return ;
-		else if (data->b_arg[data->i] == '\\' || data->b_arg[data->i] == ';')
-			data->lexer->full_str = ft_strjoin_char(data->lexer->full_str, ' ');
-		else if (data->b_arg[data->i] == '|')
-			lexer_token_pipe(data);
-		else if (data->b_arg[data->i] == '>')
-			lexer_token_input(data);
-		else if (data->b_arg[data->i] == '<')
-			lexer_token_output(data);
-		else if (data->b_arg[data->i] == '$')
-		{
-			data->i++;
-			dollar_token(data);
+		c = data->b_arg[i];
+		if (c == '\\' || c == ';')
+			lexer->full_str = ft_strjoin_char(lexer->full_str, ' ');
+		else if (c == '|'){
+			data->pipe_count++;
+			lexer->full_str = ft_strjoin(lexer->full_str, " | ");
 		}
-		else if (data->b_arg[data->i]
-			== '"' || data->b_arg[data->i] == '\'')
+		else if (c == '<')
+			lexer->full_str = ft_strjoin(lexer->full_str, " < ");
+		else if (c == '>')
+			lexer->full_str = ft_strjoin(lexer->full_str, " > ");
+		else if (c == '"' || c == '\'')
 			lexer_token_quote(data);
 		else
-			data->lexer->full_str = ft_strjoin_char(data->lexer->full_str,
-					data->b_arg[data->i]);
-		data->i++;
+			lexer->full_str = ft_strjoin_char(lexer->full_str, c);
+		i++;
 	}
 }

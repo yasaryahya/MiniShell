@@ -13,6 +13,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#define _CRTDBG_MAP_ALLOC
+
 # include "libft/libft.h"
 # include <unistd.h>
 # include <stdio.h>

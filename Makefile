@@ -32,4 +32,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re libft $(NAME) v
+.PHONY: all clean fclean re libft $(NAME) v

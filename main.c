@@ -29,7 +29,6 @@ void	init_count(t_data *data)
 	int		count;
 
 	count = 0;
-
 	current = data->env;
 	while (current)
 	{
@@ -71,7 +70,6 @@ void	minishell(t_data *data)
 			parse(data->arg, data);
 		}
 		free_data(data, command);
-		//_CrtDumpMemoryLeaks();
 	}
 }
 
