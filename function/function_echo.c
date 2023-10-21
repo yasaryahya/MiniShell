@@ -16,9 +16,9 @@
 #include <stdbool.h>
 #include <string.h>
 
-void ft_print_quoted_string(char *str, char quote_type)
+void	ft_print_quoted_string(char *str, char quote_type)
 {
-	int i = 0;
+	int (i) = 0;
 	while (str[i])
 	{
 		if (str[i] == quote_type)
@@ -28,8 +28,8 @@ void ft_print_quoted_string(char *str, char quote_type)
 			{
 				write(1, &str[i], 1);
 				i++;
-            }
-        }
+			}
+		}
 		else
 		{
 			write(1, &str[i], 1);
@@ -38,10 +38,12 @@ void ft_print_quoted_string(char *str, char quote_type)
 	}
 }
 
-void ft_echo(char **cmd, int i)
+void	ft_echo(char **cmd, int i, t_data *data)
 {
-	bool flag = true;
-	if (strcmp(cmd[1], "-n") == 0)
+	char (quote_type) = '\0';
+	bool (flag) = true;
+	data->error_no = 0;
+	if (ft_strcmp(cmd[1], "-n") == 0)
 	{
 		i++;
 		flag = false;
@@ -50,14 +52,16 @@ void ft_echo(char **cmd, int i)
 	{
 		if (cmd[i][0] == '"' || cmd[i][0] == '\'')
 		{
-			char quote_type = cmd[i][0];
+			quote_type = cmd[i][0];
 			ft_print_quoted_string(&cmd[i][1], quote_type);
 		}
 		else
-		    write(1, cmd[i], strlen(cmd[i]));
+			write(1, cmd[i], ft_strlen(cmd[i]));
+
 		i++;
+
 		if (cmd[i])
-		    write(1, " ", 1);
+			write(1, " ", 1);
 	}
 	if (flag)
 		write(1, "\n", 1);

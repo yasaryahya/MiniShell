@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:46:11 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 04:53:13 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 00:50:13 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*create_path(char *cmd, char **cmd_paths)
 		tmp_cmd = ft_strjoin(tmp, cmd);
 		free(tmp);
 		if (!access(tmp_cmd, F_OK))
-			return (ft_free_malloc(tmp_cmd_paths), tmp_cmd);
+			return (ft_free_str(tmp_cmd_paths), tmp_cmd);
 		free(tmp_cmd);
 		cmd_paths++;
 	}
@@ -59,7 +59,8 @@ char **re_create_cmd(char **ex_cmd, int len, int i, int j)
             cmd[j++] = ft_strdup(ex_cmd[i]);
     }
     cmd[j] = NULL; // cmd'yi sonlandır
-    return (ft_free_malloc(ex_cmd), cmd);
+    ft_free_str(ex_cmd);
+    return (cmd);
 }
 
 

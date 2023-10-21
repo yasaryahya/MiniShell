@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 05:05:07 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 05:12:32 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 11:03:20 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	cd_three(char *home, char **command, char *str, t_data *data)
 		}
 		if (chdir(str) != 0)
 		{
-			ft_error("function/cd: cd hatası", 2, data);
+			ft_error("function/cd: cd Error\n", 2, data);
 			return ;
 		}
 	}
@@ -50,21 +50,22 @@ void	cd_three(char *home, char **command, char *str, t_data *data)
 	{
 		if (chdir(command[1]) != 0)
 		{
-			ft_error("function/cd: Dizin hatası", 1, data);
+			ft_error("function/cd: Dizin Error\n", 2, data);
 			return ;
 		}
 	}
 	free(str);
 }
 
-void	cd(char **command, t_data *data)
+void	ft_cd(char **command, t_data *data)
 {
+	data->error_no = 0;
 	if (data->cmd_count != 2)
 	{
 		if (data->cmd_count == 1)
 		{
 			if (getenv("HOME") == NULL)
-				ft_error("function/cd: HOME ortam değişkeni ayarlanmamış", 1, data);
+				ft_error("function/cd: HOME environment variable not set", 1, data);
 			if (chdir(getenv("HOME")) != 0)
 				ft_error("function/cd:", 1, data);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 23:53:32 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/23 05:47:52 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 12:17:55 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char *find_value(char *key, t_data *data)
 
 /**
  * @brief Envrt değişkenleri içerisinde PATH arıyor ve sonrası döndürerek
- * split ile ":" ayırıyoruz ve / ekleyerek komutların yolunu buluyoruz.
+ * split ile ":" ayırıyoruz ve / ekleyerek comutların yolunu buluyoruz.
  */
 
 char	*find_path(t_data *data, char **command, int i)
@@ -85,7 +85,7 @@ char	*find_path(t_data *data, char **command, int i)
 	return (ft_free_str(paths), NULL);
 }
 
-void	execute_command(char *komut, char **command)
+void	execute_command(char *comut, char **command, t_data *data)
 {
 	pid_t	child_pid;
 	int		status;
@@ -98,9 +98,10 @@ void	execute_command(char *komut, char **command)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(komut, command, NULL) == -1)
+		data->error_no = 0;
+		if (execve(comut, command, NULL) == -1)
 		{
-			ft_error("execve hatası", 0, NULL);
+			ft_error("Execve Error", 127, NULL);
 			exit(1);
 		}
 	}
@@ -110,20 +111,22 @@ void	execute_command(char *komut, char **command)
 
 void	command_function(t_data *data, char **command)
 {
-	char	*komut;
-
+	char	*comut;
+	
+	data->error_no = 0;
 	if (!command[0])
 	{
-		ft_error("Bellek ayrılma hatası", 0, data);
+		ft_error("Malloc Error", 1, data);
 		return ;
 	}
-	komut = find_path(data, command, 0);
-	if (!komut || !komut[0])
+	comut = find_path(data, command, 0);
+	if (!comut || !comut[0])
 	{
-		printf("Komut Bulunamadı.\n");
-		//free(komut);
+		printf("bash: %s: ", command[0]);
+		ft_error("commant not found:\n", 127, data);
+		//free(comut);
 		return ;
 	}
-	execute_command(komut, command);
-	free(komut);
+	execute_command(comut, command, data);
+	free(comut);
 }

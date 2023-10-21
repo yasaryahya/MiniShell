@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/23 06:35:37 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 12:03:49 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	set_args(t_data *data)
 		data->b_arg = NULL;
 		data->cmd_path = NULL;
 		data->flag_dollar = 0;
+		data->error_no = 0;
+		data->env = NULL;
+		data->arguman = NULL;
+		data->lexer = NULL;
 	}
 }
 
@@ -43,7 +47,7 @@ void	init(t_data *data, char *command)
 	data->b_arg = ft_strdup(command);
 	data->pipe_count = 0;
 	lexer(data);
-	printf("Full str :%s\n", data->lexer->full_str);
+	//printf("Full str :%s\n", data->lexer->full_str);
 }
 
 void	minishell(t_data *data)
@@ -51,7 +55,7 @@ void	minishell(t_data *data)
 	char	*command;
 
 	init_env(data);
-	init_arguman(data);
+	//init_arguman(data);
 	while (1)
 	{
 		signal(SIGQUIT, ft_sig);
@@ -80,9 +84,6 @@ int	main(int argc, char **argv, char **envarment)
 	(void)argc;
 	(void)argv;
 	set_args(&data);
-	data.env = NULL;
-	data.arguman = NULL;
-	data.lexer = NULL;
 	data.envrt = envarment;
 	minishell(&data);
 	return (1);

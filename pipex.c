@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 01:00:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/23 05:24:25 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 01:00:36 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	comment(t_data *data, char **cmd, int input, int output)
 		char *path = create_path(cmd[0], ft_split(find_value("PATH", data), ':'));
 		execve(path, cmd, data->envrt);
 		ft_error("Command not found.\n", 127, data);
+		//parse(cmd, data);
 	}
 	if (data->has_pipe)
 		return (close(pipefd[1]), waitpid(pid, 0, 0), pipefd[0]);
@@ -97,7 +98,7 @@ void	pipex(t_data *data, int i, int fd)
 		}
 		else
 			fd = comment(data, cmd, fd, 1);
-		ft_free_malloc(cmd);
+		ft_free_str(cmd);
 	}
 	data->pipe_count = 0;
 }

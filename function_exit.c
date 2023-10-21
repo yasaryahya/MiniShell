@@ -3,20 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   function_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:46:41 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/21 21:51:54 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 11:49:15 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(t_data *data)
+void	ft_exit(t_data *data, char *command)
 {
+	data->error_no = 0;
 	if (data->cmd_count == 1)
 		exit(0);
 	else
-		ft_error("exit: too many arguments\n", 2, data);
+	{
+		printf("bash: %s: ", command);
+		ft_error("numeric argument required", 2, data);
+		exit(0);
+	}
 	return ;
 }

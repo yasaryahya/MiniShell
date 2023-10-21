@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   arguman_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:59:59 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/23 06:10:11 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/20 21:07:43 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 t_arguman	*node_add_arg(t_arguman *new_node, int *count, int *len, char *str)
 {

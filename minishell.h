@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/23 07:32:52 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 11:48:38 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_data
 	char		**arg;
 	char		*b_arg;
 	int			i;
+	int			a;
 	int			has_pipe;
 	int			error_no;
 	int			flag_dollar;
@@ -75,7 +76,7 @@ void				ft_error(char *str, int flag, t_data *data);
 
 //		ENV
 void				add_env_node(char *str, t_data *data);
-t_env				*create_env(char*str);
+t_env				*create_env(char*str, t_data *data);
 t_env				*node_add(t_env *new_node, int *count, int *len, char *str);
 void				env_print(t_data *data, int flag);
 void				control_and_printf(t_data *data);
@@ -103,7 +104,8 @@ int					ft_check_envrt(t_data *data, char *cmd);
 char				*add_quotes(const char *str, int start);
 int					check_arg_envrt(t_data *data, char **cmd, int i, int j);
 int					check_arg(t_data *data, char **cmd);
-void				delete_env(t_data *data, char *delete_env, int i);
+int					delete_env(t_data *data, char *delete_env, int i);
+int					delete_arg(t_data *data, char *delete_arg, int i);
 
 //		PİPEX
 void				pipex(t_data *data, int i, int fd);
@@ -111,6 +113,7 @@ int					comment(t_data *data, char **cmd, int input, int output);
 int					create_child_process(char **cmd, t_data *data, int input, int output);
 int					create_pipe(int *pipefd);
 char				**ft_free_malloc(char **tab);
+void				ft_free_str(char **str);
 char				*add_character_to_index(char *str, char c, int i);
 char				*create_path(char *cmd, char **cmd_paths);
 char				**re_create_cmd(char **ex_cmd, int len, int i, int j);
@@ -130,16 +133,16 @@ void				free_lexer(t_data *data);
 
 //		FUNCTİON
 void				slash(char **cmd, t_data *data);
-void				ft_exit(t_data *data);
+void				ft_exit(t_data *data, char *command);
 void 				ft_pwd(t_data *data);
-void				ft_echo(char **cmd, int i);
+void				ft_echo(char **cmd, int i, t_data *data);
 void				find_env_dollar(t_data *data, char *str);
-void				cd(char **command, t_data *data);
+void				ft_cd(char **command, t_data *data);
 void				cd_two(char *home, char **command, t_data *data);
 void				cd_three(char *home, char **command, char *str, t_data *data);
 void				command_function(t_data *data, char **command);
 char 				*to_lowercase(char *str);
-char				*find_and_clear(char *str, int search1, int search2);
+char				*find_and_clear(char *str, int search1, int search2, t_data *data);
 void				unset(t_data *data, char **cmd);
 char 				*find_value(char *key, t_data *data);
 

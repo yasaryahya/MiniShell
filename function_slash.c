@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function_bin_ls.c                                  :+:      :+:    :+:   */
+/*   function_slash.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:21:40 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 03:36:01 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 12:15:08 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ void	slash(char **cmd, t_data *data)
 {
 	pid_t	pid;
 
+	data->error_no = 0;
 	pid = fork();
 	if (pid < 0)
-		ft_error("function/bin_ls: fork hatası", 1 , data);
+		ft_error("function/bin_ls: Fork Error", 1 , data);
 	else if (pid == 0)
 	{
+		data->error_no = 0;
 		execve(cmd[0], cmd, NULL);
-		ft_error("function/bin_ls: execve hatası\n", 1, data);
+		printf("bash: %s:", cmd[0]);
+		ft_error(" No such file or directory\n", 127, data);
 	}
 	else
 		wait(NULL);

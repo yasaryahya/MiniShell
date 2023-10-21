@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/22 03:01:56 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 11:07:17 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_error(char *str, int flag, t_data *data)
 	if (flag == 1)
 	{
 		printf("%s", str);
+		data->error_no = 1;
 		exit(1);
 	}
 	else if (flag == 2) // dosya , dizin hatası

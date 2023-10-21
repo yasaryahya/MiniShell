@@ -1,23 +1,23 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(RL_INC) -g -ggdb -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -lreadline -g -ggdb
 RM = rm -rf
 SRCS = $(wildcard *.c function/*.c main/*.c lexer/*.c env/*.c)
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 USER := $(shell whoami)
 RL_INC = /usr/include
-RL_LIB = /usr/lib/x86_64-linux-gnu
-RL_FLAGS = -lreadline -L$(RL_LIB)
+#RL_LIB = /usr/lib/x86_64-linux-gnu
+#RL_FLAGS = -lreadline -L
 
 all: $(NAME)
 
 $(NAME): $(SRCS) libft
-	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFT) $(RL_FLAGS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFT) #$(RL_FLAGS)
 	@./$(NAME)
 
 v:
-	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFT) $(RL_FLAGS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFT) #$(RL_FLAGS)
 	@valgrind ./$(NAME)
 
 libft:

@@ -3,34 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 06:49:02 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/23 06:42:52 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/20 21:29:17 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+/*#include "../minishell.h"
 
 void	find_env_dollar(t_data *data, char *str)
 {
-	t_arguman *tmp = data->arguman;
-	char  *string = NULL;
-	
+	t_arguman	*tmp;
+	char		*string;
+
+	tmp = data->arguman;
+	string = NULL;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->first, str) == 0)
 		{
 			string = ft_strjoin(tmp->second, "");
-			//string = ft_strtrim(string, "=\"");
 			data->flag_dollar = 1;
 			break ;
 		}
 		tmp = tmp->next;
 	}
-	if(string)
+	if (string)
 		data->lexer->full_str = ft_strjoin(data->lexer->full_str, string);
-	else 
+	else
 		data->lexer->full_str = ft_strjoin(data->lexer->full_str, str);
 	free(string);
 }
@@ -38,7 +39,7 @@ void	find_env_dollar(t_data *data, char *str)
 void	dollar_token(t_data *data)
 {
 	char	*str;
-	
+
 	if (data->b_arg[data->i] == '?')
 		data->lexer->full_str
 			=ft_strjoin_char(data->lexer->full_str, data->b_arg[data->i]);
@@ -73,7 +74,7 @@ void	lexer_token_quote_2(t_data *data)
 		{
 			data->i++;
 			dollar_token(data);
-		}	
+		}
 		if (!data->lexer->cift_tirnak && !data->lexer->tek_tirnak)
 			break ;
 		data->lexer->full_str = ft_strjoin_char(data->lexer->full_str,
@@ -102,3 +103,4 @@ void	lexer_token_quote(t_data *data)
 	data->i++;
 	lexer_token_quote_2(data);
 }
+*/

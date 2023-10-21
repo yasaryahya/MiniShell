@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/09/22 06:43:37 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 02:25:23 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 /*
  * @brief gelen new_env stringini eşittirden öncesi 
@@ -41,7 +41,7 @@ t_env	*node_add(t_env *new_node, int *count, int *len, char *str)
  * @brief gelen envermant değişken stringini kontrol ediyoruz.
  * eşittir varmı yokmu, varsa kaç tane var.
  */
-t_env *create_env(char *str)
+t_env	*create_env(char *str, t_data *data)
 {
     int len = 0;
     int count = 0;
@@ -51,7 +51,7 @@ t_env *create_env(char *str)
     count = 0;
     new_node = (t_env *)malloc(sizeof(t_env));
     if (!new_node)
-		return NULL;
+		ft_error("Malloc Error", 1, data);
     while (str[len])
     {
         if (str[len] == '=')
@@ -76,7 +76,7 @@ void	add_env_node(char *str, t_data *data)
 	t_env	*temp;
 	t_env	*new_node;
 
-	new_node = create_env(str);
+	new_node = create_env(str, data);
 	new_node->next = NULL;
 	if (!new_node)
 		ft_error("env_init/ malloc error", 1, data);
@@ -89,6 +89,7 @@ void	add_env_node(char *str, t_data *data)
 			temp = temp->next;
 		temp->next = new_node;
 	}
+	data->error_no = 0;
 }
 
 /**

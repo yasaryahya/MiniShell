@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:00:19 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/22 06:15:34 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 02:16:13 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ char *to_lowercase(char *str)
     return (new);
 }
 
-char *find_and_clear(char *str, int search1, int search2)
+char *find_and_clear(char *str, int search1, int search2, t_data *data)
 {
 	int (i) = -1;
     int (j) = 0;
 
 	char *new_str = malloc(ft_strlen(str) + 1);
+    if (!new_str)
+        ft_error("Malloc Error", 1, data);
 	while (str[++i])
 	{
 		if ((str[i] != search1) && (str[i] != search2))
@@ -42,5 +44,5 @@ char *find_and_clear(char *str, int search1, int search2)
 		}
 	}
 	new_str[j] = '\0';
-	return new_str;
+	return (new_str);
 }

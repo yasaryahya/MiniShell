@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 07:07:46 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/23 07:35:26 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 02:54:53 by sustmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void delete_arguman(t_data *data, char *delete, int i)
         prev = current;
         current = current->next;
     }
-	
+	data->error_no = 0;
 }
 
 int	check_arguman(char **cmd, t_data *data)
@@ -64,13 +64,19 @@ int ft_arguman_add(char **cmd, t_data *data)
 	char	*clear_str;
 	int		(i) = 0;
 
+	data->error_no = 0;
 	if (check_arguman(cmd, data) == 0)
 		return (0);
 	while (i < data->cmd_count)
 	{
-		clear_str = find_and_clear(cmd[i], '"', '\'');
-        delete_arguman(data, clear_str, -1);
-		add_arg_node(clear_str, data);
+		clear_str = find_and_clear(cmd[i], '"', '\'', data);
+		if (delete_env(data, clear_str, 1) == 1)
+			add_env_node(clear_str, data);
+		else
+		{
+        	delete_arguman(data, clear_str, -1);
+			add_arg_node(clear_str, data);
+		}
         free(clear_str);
 		i++;
 	}
