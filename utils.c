@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:00:19 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/21 02:16:13 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/10/21 17:37:33 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char *to_lowercase(char *str)
         return NULL;
     while (str[++i])
         new[i] = ft_tolower(str[i]);
-    new[i] = '\0';
+    new[i] = '\0';  
     return (new);
 }
 

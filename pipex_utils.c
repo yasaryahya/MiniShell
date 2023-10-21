@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:46:11 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/21 00:50:13 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/10/21 18:45:16 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ char **re_create_cmd(char **ex_cmd, int len, int i, int j)
         else
             cmd[j++] = ft_strdup(ex_cmd[i]);
     }
-    cmd[j] = NULL; // cmd'yi sonlandır
-    ft_free_str(ex_cmd);
+    cmd[j] = NULL;
+    if          (ex_cmd)
+        ft_free_str(ex_cmd);
     return (cmd);
 }
 

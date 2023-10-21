@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
-/*   Updated: 2023/10/21 11:48:38 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/10/21 17:53:44 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data
 {
 	char		**arg;
 	char		*b_arg;
+	char		**cmd;
 	int			i;
 	int			a;
 	int			has_pipe;
@@ -109,7 +110,7 @@ int					delete_arg(t_data *data, char *delete_arg, int i);
 
 //		PİPEX
 void				pipex(t_data *data, int i, int fd);
-int					comment(t_data *data, char **cmd, int input, int output);
+int					comment(t_data *data, int input, int output);
 int					create_child_process(char **cmd, t_data *data, int input, int output);
 int					create_pipe(int *pipefd);
 char				**ft_free_malloc(char **tab);

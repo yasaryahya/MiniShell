@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/10/21 12:03:49 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/10/21 18:14:26 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	set_args(t_data *data)
 	if(data)
 	{
 		data->arg = NULL;
+		data->cmd = NULL;
 		data->b_arg = NULL;
 		data->cmd_path = NULL;
 		data->flag_dollar = 0;
@@ -44,6 +45,7 @@ void	init_count(t_data *data)
 
 void	init(t_data *data, char *command)
 {
+
 	data->b_arg = ft_strdup(command);
 	data->pipe_count = 0;
 	lexer(data);
@@ -55,7 +57,6 @@ void	minishell(t_data *data)
 	char	*command;
 
 	init_env(data);
-	//init_arguman(data);
 	while (1)
 	{
 		signal(SIGQUIT, ft_sig);
