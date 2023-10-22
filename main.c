@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/10/21 18:14:26 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 23:18:50 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	minishell(t_data *data)
 	{
 		signal(SIGQUIT, ft_sig);
 		signal(SIGINT, ft_sig);
-		command = readline("\033[31msalihshell$\033[0m ");
+		command = readline("\033[31msalihshell$\033[0m "); // \033[1;36mminishell\033[34m$ \033[0m
 		if (command == NULL)
 			ft_sig(4);
 		add_history(command);

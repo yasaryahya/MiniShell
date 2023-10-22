@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 23:53:32 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/21 17:04:46 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/10/21 23:41:21 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	execute_command(char *comut, char **command, t_data *data)
 void	command_function(t_data *data, char **command)
 {
 	char	*comut;
-	
+
 	data->error_no = 0;
 	if (!command[0])
 	{
