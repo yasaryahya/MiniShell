@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+         #
+#    By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/28 16:10:53 by yyasar            #+#    #+#              #
-#    Updated: 2023/09/20 07:14:39 by sustmas          ###   ########.fr        #
+#    Updated: 2023/11/11 23:42:44 by yyasar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ft_strdup.c ft_split.c ft_calloc.c ft_itoa.c\
 ft_strlen.c ft_strncmp.c ft_substr.c ft_strtrim.c\
 ft_strnstr.c ft_strrchr.c ft_strjoin.c\
 ft_tolower.c ft_toupper.c ft_strlcat.c ft_strjoin_char.c\
-ft_strcmp.c ft_strcat.c 
+ft_strcmp.c ft_strcat.c ft_strcpy.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,12 +6,14 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:25:01 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/20 23:45:34 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/11 21:57:02 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 char	*add_character_to_index(char *str, char c, int i)
 {
@@ -59,8 +61,22 @@ void	redirection_to_input(char **cmd, int fd, int i)
 		close(fd);
 	}
 	else if (fd < 0)
-		return (printf("minishell: %s: no such file or directory\n",
-				cmd[i + 1]), exit(1));
+	{
+		printf("minishell: %s: no such file or directory\n", cmd[i + 1]);
+		return (exit(1));
+	}
+}
+
+void	output_two(char **cmd, int i, int fd, int x)
+{
+	if (!x++)
+	{
+		fd = open(cmd[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0000644);
+		dup2(fd, 1);
+	}
+	else
+		fd = open(cmd[i + 1], O_CREAT, 0000644);
+	close(fd);
 }
 
 void	redirection_to_output(char **cmd, int i, int fd, int x)
@@ -75,8 +91,7 @@ void	redirection_to_output(char **cmd, int i, int fd, int x)
 		{
 			if (!x++)
 			{
-				fd = open(cmd[i + 1],
-						O_CREAT | O_TRUNC | O_WRONLY, 0000644);
+				fd = open(cmd[i + 1], O_CREAT | O_TRUNC | O_WRONLY, 0000644);
 				dup2(fd, 1);
 			}
 			else
@@ -84,21 +99,11 @@ void	redirection_to_output(char **cmd, int i, int fd, int x)
 			close(fd);
 		}
 		else if (!ft_strncmp(cmd[i], ">>", 3))
-		{
-			if (!x++)
-			{
-				fd = open(cmd[i + 1], O_CREAT
-						| O_APPEND | O_WRONLY, 0000644);
-				dup2(fd, 1);
-			}
-			else
-				fd = open(cmd[i + 1], O_CREAT, 0000644);
-			close(fd);
-		}
+			output_two(cmd, i, fd, x);
 	}
 }
 
-char *re_create_input(char *input)
+char	*re_create_input(char *input)
 {
 	int	i;
 
@@ -107,7 +112,8 @@ char *re_create_input(char *input)
 	{
 		if (input[i] == '<' || input[i] == '>')
 		{
-			input = add_character_to_index(input, ' ', i + 1 + (input[i + 1] == input[i]));
+			input = add_character_to_index(input, ' ', i + 1 + (input[i
+						+ 1] == input[i]));
 			input = add_character_to_index(input, ' ', i);
 			i += 1 + (input[i + 2] == input[i + 1]);
 		}

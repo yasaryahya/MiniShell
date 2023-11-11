@@ -3,27 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   function_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 05:05:07 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/21 11:03:20 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/11/12 01:25:23 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 void	cd_two(char *home, char **command, t_data *data)
 {
-	char	*str = NULL;
+	char	*str;
 
+	str = NULL;
 	if (ft_strncmp(command[1], "..", ft_strlen(command[1])) == 0)
 	{
 		if (chdir("..") != 0)
 		{
-			ft_error("function/cd: cd hatası", 2, data);
+			ft_error("cd: no such file or directory:", 2, data);
 			return ;
 		}
-		return;		
+		return ;
 	}
 	cd_three(home, command, str, data);
 	return ;
@@ -42,7 +45,7 @@ void	cd_three(char *home, char **command, char *str, t_data *data)
 		}
 		if (chdir(str) != 0)
 		{
-			ft_error("function/cd: cd Error\n", 2, data);
+			ft_error("cd: no such file or directory:\n", 2, data);
 			return ;
 		}
 	}
@@ -50,7 +53,7 @@ void	cd_three(char *home, char **command, char *str, t_data *data)
 	{
 		if (chdir(command[1]) != 0)
 		{
-			ft_error("function/cd: Dizin Error\n", 2, data);
+			ft_error("cd: no such file or directory:\n", 2, data);
 			return ;
 		}
 	}
@@ -65,7 +68,8 @@ void	ft_cd(char **command, t_data *data)
 		if (data->cmd_count == 1)
 		{
 			if (getenv("HOME") == NULL)
-				ft_error("function/cd: HOME environment variable not set", 1, data);
+				ft_error("function/cd: HOME environment variable not set", 1,
+					data);
 			if (chdir(getenv("HOME")) != 0)
 				ft_error("function/cd:", 1, data);
 		}

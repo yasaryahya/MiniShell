@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   arguman_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:59:59 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/20 21:07:43 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/11/11 22:49:05 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
 t_arguman	*node_add_arg(t_arguman *new_node, int *count, int *len, char *str)
 {
@@ -30,28 +31,30 @@ t_arguman	*node_add_arg(t_arguman *new_node, int *count, int *len, char *str)
 	return (new_node);
 }
 
-t_arguman *create_arguman(char *str)
+t_arguman	*create_arguman(char *str)
 {
-    int len = 0;
-    int count = 0;
-    t_arguman *new_node;
+	int			len;
+	int			count;
+	t_arguman	*new_node;
 
-    len = 0;
-    count = 0;
-    new_node = (t_arguman *)malloc(sizeof(t_arguman));
-    if (!new_node)
-		return NULL;
-    while (str[len])
-    {
-        if (str[len] == '=')
-        {
-            count = 1;
-            break;
-        }
-        len++;
-    }
-    new_node = node_add_arg(new_node, &count, &len, str);
-    return (new_node);
+	len = 0;
+	count = 0;
+	len = 0;
+	count = 0;
+	new_node = (t_arguman *)malloc(sizeof(t_arguman));
+	if (!new_node)
+		return (NULL);
+	while (str[len])
+	{
+		if (str[len] == '=')
+		{
+			count = 1;
+			break ;
+		}
+		len++;
+	}
+	new_node = node_add_arg(new_node, &count, &len, str);
+	return (new_node);
 }
 
 void	add_arg_node(char *str, t_data *data)
@@ -76,7 +79,7 @@ void	add_arg_node(char *str, t_data *data)
 
 int	init_arguman(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (data->envrt[++i] != NULL)

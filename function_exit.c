@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   function_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:46:41 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/21 11:49:15 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/11/11 22:25:07 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 void	ft_exit(t_data *data, char *command)
 {

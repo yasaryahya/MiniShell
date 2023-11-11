@@ -6,16 +6,15 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 23:53:32 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/21 23:41:21 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/11 22:36:51 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <sys/stat.h>
-#include <dirent.h>
 #include <stdlib.h>
-#include <limits.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <sys/wait.h>
 
 void	ft_free_str(char **str)
 {
@@ -39,18 +38,18 @@ void	ft_free_str(char **str)
  * bulduğu indexte path=xxxx path'den sonrasını döndürüyor. Yoksa null.
  */
 
-char *find_value(char *key, t_data *data)
+char	*find_value(char *key, t_data *data)
 {
-    t_env *tmp = data->env;
+	t_env	*tmp;
 
-    while (tmp)
-    {
-        if (ft_strcmp(tmp->first, key) == 0)
-            return (tmp->second);
-        tmp = tmp->next;
-    }
-
-    return (NULL);
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->first, key) == 0)
+			return (tmp->second);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
 
 /**
@@ -60,10 +59,10 @@ char *find_value(char *key, t_data *data)
 
 char	*find_path(t_data *data, char **command, int i)
 {
-	char		*temp;
-	char		**paths;
-	char		*path_with_slash;
-	char		*new_path;
+	char	*temp;
+	char	**paths;
+	char	*path_with_slash;
+	char	*new_path;
 
 	temp = find_value("PATH", data);
 	if (temp == NULL)
@@ -85,7 +84,7 @@ char	*find_path(t_data *data, char **command, int i)
 	return (ft_free_str(paths), NULL);
 }
 
-void	execute_command(char *comut, char **command, t_data *data)
+void	execute_command(char *komut, char **command, t_data *data)
 {
 	pid_t	child_pid;
 	int		status;
@@ -99,7 +98,7 @@ void	execute_command(char *comut, char **command, t_data *data)
 	if (child_pid == 0)
 	{
 		data->error_no = 0;
-		if (execve(comut, command, NULL) == -1)
+		if (execve(komut, command, NULL) == -1)
 		{
 			ft_error("Execve Error", 127, NULL);
 			exit(1);
@@ -124,7 +123,6 @@ void	command_function(t_data *data, char **command)
 	{
 		printf("bash: %s: ", command[0]);
 		ft_error("commant not found:\n", 127, data);
-		//free(comut);
 		return ;
 	}
 	execute_command(comut, command, data);

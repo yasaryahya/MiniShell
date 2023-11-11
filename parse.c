@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 07:33:37 by sustmas           #+#    #+#             */
-/*   Updated: 2023/10/21 12:10:19 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/11/12 01:31:10 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 void	parse_three(char **command, t_data *data, char *new_cmd)
 {
-
 	if (ft_strcmp(new_cmd, "unset") == 0)
 		unset(data, command);
 	else if (ft_strcmp(new_cmd, "clear") == 0)
 		printf("\033[H\033[J");
 	else if (ft_strcmp(command[0], "exit") == 0)
 		ft_exit(data, command[1]);
-	else if (((ft_strncmp(&command[0][0], "/" , 1) == 0)
-		|| ft_strncmp(&command[0][0], "." , 1) == 0) && data->flag_dollar == 0)
+	else if (((ft_strncmp(&command[0][0], "/", 1) == 0)
+		|| ft_strncmp(&command[0][0], ".", 1) == 0))
 		slash(command, data);
 	else
 		command_function(data, command);
@@ -30,9 +31,7 @@ void	parse_three(char **command, t_data *data, char *new_cmd)
 
 void	parse_two(char **command, t_data *data)
 {
-	char *(new_cmd) = NULL;
-
-	new_cmd = to_lowercase(command[0]);
+	char *(new_cmd) = to_lowercase(command[0]);
 	if (!new_cmd)
 		ft_error("Malloc Error", 1, data);
 	data->cmd_count = 0;
@@ -59,7 +58,7 @@ void	parse(char **command, t_data *data)
 {
 	if (!command || !command[0])
 	{
-		ft_error("Command is empty or invalid.\n", 127, data);
+		ft_error("", 127, data);
 		return ;
 	}
 	else

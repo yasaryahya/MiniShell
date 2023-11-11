@@ -6,75 +6,84 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/10/21 23:18:50 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/12 01:52:42 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	set_args(t_data *data)
-{
-	if(data)
-	{
-		data->arg = NULL;
-		data->cmd = NULL;
-		data->b_arg = NULL;
-		data->cmd_path = NULL;
-		data->flag_dollar = 0;
-		data->error_no = 0;
-		data->env = NULL;
-		data->arguman = NULL;
-		data->lexer = NULL;
-	}
-}
-
-void	init_count(t_data *data)
-{
-	t_env	*current;
-	int		count;
-
-	count = 0;
-	current = data->env;
-	while (current)
-	{
-		count++;
-		current = current->next;
-	}
-	data->env_count = count;
-}
+#include <stdio.h>
+#include <signal.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 void	init(t_data *data, char *command)
 {
-
 	data->b_arg = ft_strdup(command);
 	data->pipe_count = 0;
+	data->token = 0;
 	lexer(data);
-	//printf("Full str :%s\n", data->lexer->full_str);
+}
+
+char	*minishell_two(t_data *data)
+{
+	char	*command;
+
+	data->quotes_flag = 0;
+	signal(SIGQUIT, ft_sig);
+	signal(SIGINT, ft_sig);
+	command = readline("\033[31msalihshell >> \033[0m ");
+	if (command == NULL)
+		ft_sig(4);
+	add_history(command);
+	int nbr = quotes_control(command);
+	if (!nbr)
+	{
+		ft_error("syntax error: quotes not closed `'' or `\"'\n", 127, data);
+		data->quotes_flag = 1;
+		data->flag_token = 1;
+		free(command);
+		return (command);
+	}
+	data->lexer = (t_lexer *)malloc(sizeof(t_lexer));
+	init(data, command);
+	return (command);
+}
+
+void	minishell_three(t_data *data)
+{
+	if (data->token)
+	{
+		data->has_pipe = 0;
+		comment(data, data->arg, 0, 1);
+		data->token = 0;
+	}
+	else
+		parse(data->arg, data);
 }
 
 void	minishell(t_data *data)
 {
 	char	*command;
 
-	init_env(data);
 	while (1)
 	{
-		signal(SIGQUIT, ft_sig);
-		signal(SIGINT, ft_sig);
-		command = readline("\033[31msalihshell$\033[0m "); // \033[1;36mminishell\033[34m$ \033[0m
-		if (command == NULL)
-			ft_sig(4);
-		add_history(command);
-		data->lexer = (t_lexer *)malloc(sizeof(t_lexer));
-		init(data, command);
-		if (data->pipe_count > 0)
-			pipex(data, -1, 0);
-		else
+		command = minishell_two(data);
+		if (!data->flag_token)
 		{
-			data->arg = ft_split(data->lexer->full_str, ' ');
-			parse(data->arg, data);
+			if (data->pipe_count > 0)
+				pipex(data, -1, 0);
+			else
+			{
+				data->arg = ft_split(data->lexer->full_str, ' ');
+				if (!data->arg)
+					break ;
+				minishell_three(data);
+			}
 		}
-		free_data(data, command);
+		if (!data->quotes_flag)
+			free_data(data, command);
+		if (data->flag_token)
+			data->flag_token = 0;
 	}
 }
 
@@ -86,6 +95,7 @@ int	main(int argc, char **argv, char **envarment)
 	(void)argv;
 	set_args(&data);
 	data.envrt = envarment;
+	init_env(&data);
 	minishell(&data);
 	return (1);
 }

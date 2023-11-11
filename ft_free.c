@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 19:31:35 by yyasar            #+#    #+#             */
-/*   Updated: 2023/10/21 23:38:08 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/12 00:00:24 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	free_data(t_data *data, char *command)
 		free(data->lexer);
 	if (data->b_arg)
 		free(data->b_arg);
-	if (data->arg && !data->pipe_count)
+	if (data->arg && !data->pipe_count && !data->flag_token)
 		ft_free_malloc(data->arg);
 	(void)command;
-	if (command )
+	if (command)
 		free(command);
 }

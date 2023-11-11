@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/10/21 02:25:23 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/11/11 22:47:52 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
 /*
- * @brief gelen new_env stringini eşittirden öncesi 
+ * @brief gelen new_env stringini eşittirden öncesi
  * ve eşittirden sonrası
- * olarak ayırıyoruz, eşittirden öncesi t_env->first 'e atıyoruz, 
- * eşittirden sonrasıda başına ve sonuna 
+ * olarak ayırıyoruz, eşittirden öncesi t_env->first 'e atıyoruz,
+ * eşittirden sonrasıda başına ve sonuna
  * " işareti koyarak t_env->second'a atıyoruz.
-*/
+ */
 t_env	*node_add(t_env *new_node, int *count, int *len, char *str)
 {
 	if (new_node)
@@ -43,28 +44,29 @@ t_env	*node_add(t_env *new_node, int *count, int *len, char *str)
  */
 t_env	*create_env(char *str, t_data *data)
 {
-    int len = 0;
-    int count = 0;
-    t_env *new_node;
+	int		len;
+	int		count;
+	t_env	*new_node;
 
-    len = 0;
-    count = 0;
-    new_node = (t_env *)malloc(sizeof(t_env));
-    if (!new_node)
+	len = 0;
+	count = 0;
+	len = 0;
+	count = 0;
+	new_node = (t_env *)malloc(sizeof(t_env));
+	if (!new_node)
 		ft_error("Malloc Error", 1, data);
-    while (str[len])
-    {
-        if (str[len] == '=')
-        {
-            count = 1;
-            break;
-        }
-        len++;
-    }
-    new_node = node_add(new_node, &count, &len, str);
-    return (new_node);
+	while (str[len])
+	{
+		if (str[len] == '=')
+		{
+			count = 1;
+			break ;
+		}
+		len++;
+	}
+	new_node = node_add(new_node, &count, &len, str);
+	return (new_node);
 }
-
 
 /**
  * @brief Envrt değişkenlerini List yapısına bağladığımız yer,
@@ -98,7 +100,7 @@ void	add_env_node(char *str, t_data *data)
  */
 int	init_env(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (data->envrt[++i] != NULL)

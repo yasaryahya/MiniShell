@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sustmas <sustmas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:14:22 by yyasar            #+#    #+#             */
-/*   Updated: 2023/09/20 01:56:28 by sustmas          ###   ########.fr       */
+/*   Updated: 2023/11/11 16:20:56 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_sig(int sig)
 		printf("%s", "\n");
 	else if (sig == 4)
 	{
-		printf("\nExit\n");
+		printf("Exit\n");
 		exit (0);
 	}
 }
