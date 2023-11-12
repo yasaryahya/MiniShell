@@ -14,7 +14,6 @@ all: $(NAME)
 
 $(NAME): $(SRCS) libft
 	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFT) #$(RL_FLAGS)
-	@./$(NAME)
 
 v:
 	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIBFT) #$(RL_FLAGS)

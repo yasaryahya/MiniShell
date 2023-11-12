@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
-/*   Updated: 2023/11/11 22:32:01 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/12 04:25:13 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 	char				*b_arg;
 	char				**cmd;
 	int					quotes_flag;
+	int					flag;
 	int					token;
 	int					flag_token;
 	int					i;
@@ -101,6 +102,10 @@ void					dollar_token(t_data *data);
 void					lexer_token_output(t_data *data);
 void					lexer_token_input(t_data *data);
 void					lexer_token_pipe(t_data *data);
+void					copy_to_str(t_lexer *lexer, char *str, char *full_str);
+int						lexer_output(t_data *data, t_lexer *lexer);
+int						lexer_input(t_data *data, t_lexer *lexer);
+int						lexer_pipe(t_data *data, t_lexer *lexer);
 
 //		EXPORT
 void					export(t_data *data, char **cmd);

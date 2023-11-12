@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/11/12 01:52:42 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/12 11:48:18 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	init(t_data *data, char *command)
 	data->b_arg = ft_strdup(command);
 	data->pipe_count = 0;
 	data->token = 0;
+	data->i = 0;
+	data->flag = 0;
 	lexer(data);
 }
 
@@ -29,13 +31,13 @@ char	*minishell_two(t_data *data)
 	char	*command;
 
 	data->quotes_flag = 0;
-	signal(SIGQUIT, ft_sig);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sig);
-	command = readline("\033[31msalihshell >> \033[0m ");
+	command = readline("\033[31msalihshell >>\033[0m ");
 	if (command == NULL)
 		ft_sig(4);
 	add_history(command);
-	int nbr = quotes_control(command);
+	int (nbr) = quotes_control(command);
 	if (!nbr)
 	{
 		ft_error("syntax error: quotes not closed `'' or `\"'\n", 127, data);
