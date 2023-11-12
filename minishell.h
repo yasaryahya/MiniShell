@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:21:46 by sustmas           #+#    #+#             */
-/*   Updated: 2023/11/12 04:25:13 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/12 17:48:43 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@
 # define _CRTDBG_MAP_ALLOC
 
 # include "libft/libft.h"
-# include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
 
 typedef struct s_lexer
 {
@@ -106,6 +96,7 @@ void					copy_to_str(t_lexer *lexer, char *str, char *full_str);
 int						lexer_output(t_data *data, t_lexer *lexer);
 int						lexer_input(t_data *data, t_lexer *lexer);
 int						lexer_pipe(t_data *data, t_lexer *lexer);
+char					*space_single(t_data *data);
 
 //		EXPORT
 void					export(t_data *data, char **cmd);
@@ -165,5 +156,7 @@ void					unset(t_data *data, char **cmd);
 char					*find_value(char *key, t_data *data);
 int						quotes_control(char *command);
 void					set_args(t_data *data);
+int						lexer_error_control(t_data *data);
+char					*space_single(t_data *data);
 
 #endif

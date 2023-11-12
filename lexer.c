@@ -25,7 +25,7 @@ void	dollar_token(t_data *data)
 	}
 	else
 	{
-		if (data->b_arg[data->i] == '\0')
+		if (!data->b_arg[data->i])
 			copy_to_str(data->lexer, "$", data->lexer->full_str);
 		else
 		{
@@ -91,6 +91,7 @@ int	lexer_two(t_data *data, t_lexer *lexer)
 	}
 	else if (data->b_arg[data->i] == '$')
 	{
+		data->i++;
 		dollar_token(data);
 		return (0);
 	}

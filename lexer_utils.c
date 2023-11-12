@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 02:29:13 by yyasar            #+#    #+#             */
-/*   Updated: 2023/11/12 05:11:04 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/12 16:23:37 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,6 @@ int	lexer_input(t_data *data, t_lexer *lexer)
 	else
 		copy_to_str(lexer, " < ", lexer->full_str);
 	data->token++;
-	if (data->b_arg[data->i + 1] == '<' && !data->flag_token)
-	{
-		ft_error("syntax error near unexpected token `<'\n", 127, data);
-		data->flag_token = 1;
-		return (0);
-	}
 	return (1);
 }
 
@@ -83,18 +77,6 @@ int	lexer_output(t_data *data, t_lexer *lexer)
 	else
 		copy_to_str(lexer, " > ", lexer->full_str);
 	data->token++;
-	if (data->b_arg[data->i + 1] == '>' && !data->flag_token)
-	{
-		ft_error("syntax error near unexpected token `>'\n", 127, data);
-		data->flag_token = 1;
-		return (0);
-	}
-	if (data->b_arg[data->i + 1] == '\n' && !data->flag_token)
-	{
-		ft_error("syntax error near unexpected token `\\n'\n", 127, data);
-		data->flag_token = 1;
-		return (0);
-	}
 	return (1);
 }
 
@@ -102,11 +84,5 @@ int	lexer_pipe(t_data *data, t_lexer *lexer)
 {
 	data->pipe_count++;
 	copy_to_str(lexer, " | ", lexer->full_str);
-	if (data->b_arg[data->i + 1] == '|')
-	{
-		ft_error("syntax error near unexpected token `|'\n", 127, data);
-		data->flag_token = 1;
-		return (0);
-	}
 	return (1);
 }

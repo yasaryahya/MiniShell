@@ -6,7 +6,7 @@
 /*   By: yyasar <yyasar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:45:12 by sustmas           #+#    #+#             */
-/*   Updated: 2023/11/12 11:48:18 by yyasar           ###   ########.fr       */
+/*   Updated: 2023/11/12 17:33:36 by yyasar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	init(t_data *data, char *command)
 	data->i = 0;
 	data->flag = 0;
 	lexer(data);
+	lexer_error_control(data);
+	if (data->flag_token)
+		data->pipe_count = 0;
 }
 
 char	*minishell_two(t_data *data)
